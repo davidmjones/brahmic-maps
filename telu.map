@@ -1,0 +1,410 @@
+;; 
+;;  This is file `telu.map',
+;;  generated with the docstrip utility.
+;; 
+;;  The original source files were:
+;; 
+;;  brahmic.dtx  (with options: `telu')
+;;  
+;;  Copyright 2015 David M. Jones
+;;  
+;;  email: dmj@ams.org
+;;  
+;;  This work may be distributed and/or modified under the
+;;  conditions of the LaTeX Project Public License, either version 1.3c
+;;  of this license or (at your option) any later version.
+;;  The latest version of this license is in
+;;    http://www.latex-project.org/lppl.txt
+;;  and version 1.3c or later is part of all distributions of LaTeX
+;;  version 2005/12/01 or later.
+;;  
+;;  This work has the LPPL maintenance status `maintained'.
+;;  
+;;  The Current Maintainer of this work is David M. Jones.
+
+LHSName "Unicode/ISO 15919"
+RHSName "Unicode/Telugu"
+Version "0.00 beta"
+Define a        U+0061
+Define ae       U+00E6
+Define b        U+0062
+Define c        U+0063
+Define d        U+0064
+Define e        U+0065
+Define f        U+0066
+Define g        U+0067
+Define h        U+0068
+Define i        U+0069
+Define j        U+006A
+Define k        U+006B
+Define l        U+006C
+Define m        U+006D
+Define n        U+006E
+Define o        U+006F
+Define p        U+0070
+Define q        U+0071
+Define r        U+0072
+Define s        U+0073
+Define t        U+0074
+Define u        U+0075
+Define v        U+0076
+Define w        U+0077
+; Define x        U+0078
+Define y        U+0079
+Define z        U+007A
+Define ri       U+E000 ; PUA
+Define lry      U+E001 ; PUA
+Define apos     U+0027
+; Define colon    U+003A ; predefined
+Define degree   U+00B0
+Define bar      U+007C
+
+Define lbrack   U+005B
+Define rbrack   U+005D
+Define grave        U+0300
+Define acute        U+0301
+Define circumflex   U+0302
+Define tildeabove   U+0303
+Define macronabove  U+0304
+Define breveabove   U+0306
+Define dotabove     U+0307
+Define dieresis     U+0308
+Define vert         U+030D
+Define CANDRABINDU  U+0310
+Define dotbelow     U+0323
+Define ringbelow    U+0325
+Define ccedilla     U+0327
+Define hookbelow    U+0328
+Define brevebelow   U+032E
+Define macronbelow  U+0331
+Define danda    U+0964
+Define dbldanda U+0965
+
+Define zwnj     U+200C ; ZERO WIDTH NON-JOINER
+Define zwj      U+200D ; ZERO WIDTH JOINER
+Define hiatus   U+0020 ; SPACE
+Define nbsp     U+00A0 ; NO-BREAK SPACE
+
+Define NOTDEF   U+FFFD
+Define candrabindu U+0C00
+Define altcandrabindu U+0C01
+Define anusvara    U+0C02
+Define visarga     U+0C03
+
+Define asvara      U+0C05
+Define Asvara      U+0C06
+
+Define isvara      U+0C07
+Define Isvara      U+0C08
+
+Define usvara      U+0C09
+Define Usvara      U+0C0A
+
+Define rsvara      U+0C0B
+Define lsvara      U+0C0C
+
+Define esvara      U+0C0E
+Define Esvara      U+0C0F
+Define ecandra     U+0C0F
+Define aisvara     U+0C10
+
+Define osvara      U+0C12
+Define Osvara      U+0C13
+Define ocandra     U+0C13
+Define ausvara     U+0C14
+
+Define ka          U+0C15
+Define kha         U+0C16
+Define ga          U+0C17
+Define gha         U+0C18
+Define nga         U+0C19
+
+Define ca          U+0C1A
+Define cha         U+0C1B
+Define ja          U+0C1C
+Define jha         U+0C1D
+Define nya         U+0C1E
+
+Define tta         U+0C1F
+Define ttha        U+0C20
+Define dda         U+0C21
+Define ddha        U+0C22
+Define nna         U+0C23
+
+Define ta          U+0C24
+Define tha         U+0C25
+Define da          U+0C26
+Define dha         U+0C27
+Define na          U+0C28
+
+Define pa          U+0C2A
+Define pha         U+0C2B
+Define ba          U+0C2C
+Define bha         U+0C2D
+Define ma          U+0C2E
+
+Define ya          U+0C2F
+Define ra          U+0C30
+Define rra         U+0C31
+Define la          U+0C32
+Define lla         U+0C33
+Define llla        U+0C34
+Define va          U+0C35
+
+Define sha         U+0C36
+Define ssa         U+0C37
+Define sa          U+0C38
+Define ha          U+0C39
+
+Define avagraha    U+0C3D
+
+Define Amatra      U+0C3E
+
+Define imatra      U+0C3F
+Define Imatra      U+0C40
+
+Define umatra      U+0C41
+Define Umatra      U+0C42
+
+Define rmatra      U+0C43
+Define Rmatra      U+0C44
+
+Define ematra       U+0C46
+Define Ematra       U+0C47
+Define ecandramatra U+0C47
+Define aimatra      U+0C48
+
+Define omatra       U+0C4A
+Define Omatra       U+0C4B
+Define ocandramatra U+0C4B
+Define aumatra      U+0C4C
+
+Define virama      U+0C4D
+
+Define udatta      NOTDEF
+Define anudatta    NOTDEF
+
+; Define length_mark    U+0C55
+; Define ai_length_mark U+0C56
+
+Define tsa         U+0C58
+Define dza         U+0C59
+
+Define fa          NOTDEF
+
+Define Rsvara      U+0C60
+Define Lsvara      U+0C61
+Define lmatra      U+0C62
+Define Lmatra      U+0C63
+
+Define zero        U+0C66
+Define one         U+0C67
+Define two         U+0C68
+Define three       U+0C69
+Define four        U+0C6A
+Define five        U+0C6B
+Define six         U+0C6C
+Define seven       U+0C6D
+Define eight       U+0C6E
+Define nine        U+0C6F
+
+Define abbrev      NOTDEF
+
+Define zero1       U+0C78
+Define one1        U+0C79
+Define two1        U+0C7A
+Define three1      U+0C7B
+
+Define one2        U+0C7C
+Define two2        U+0C7D
+Define three2      U+0C7E
+
+Define tuumu       U+0C7F
+
+Define extravyanjana dza llla tsa
+pass(NFD)
+pass(Unicode)
+
+UniClass[upper] = (U+0041 .. U+005A) ; A..Z
+UniClass[lower] = (U+0061 .. U+007A) ; a..z
+
+[upper] > [lower]
+lbrack .* rbrack >
+pass(Unicode)
+
+l ringbelow > lry
+r ringbelow > ri
+i dieresis > zwnj i
+u dieresis > zwnj u
+macronbelow macronabove > macronabove macronbelow
+macronbelow CANDRABINDU > CANDRABINDU macronbelow
+
+
+pass(Unicode)
+U+0030 > zero
+U+0031 > one
+U+0032 > two
+U+0033 > three
+U+0034 > four
+U+0035 > five
+U+0036 > six
+U+0037 > seven
+U+0038 > eight
+U+0039 > nine
+UniClass[short_in]  = (a      i      u      ri     lry)
+UniClass[short_out] = (asvara isvara usvara rsvara lsvara)
+UniClass[long_out]  = (Asvara Isvara Usvara Rsvara Lsvara)
+
+[short_in] macronabove > [long_out]
+
+[short_in] > [short_out]
+
+u breveabove > usvara
+
+e             > esvara
+e macronabove > Esvara
+a i           > aisvara
+
+e circumflex > ecandra
+o circumflex > ocandra
+
+o             > osvara
+o macronabove > Osvara
+a u           > ausvara
+
+
+n breveabove > altcandrabindu ; ???
+
+
+
+apos > avagraha
+vert        > udatta
+macronbelow > anudatta
+grave >
+acute >
+tildeabove >
+m dotabove > anusvara
+h dotbelow > visarga
+m dotbelow > anusvara
+m CANDRABINDU > candrabindu
+n CANDRABINDU > candrabindu
+z > dza
+k          <> ka
+k h        <> kha
+g          <> ga
+g h        <> gha
+n dotabove <> nga
+c            <> ca
+c circumflex <> tsa
+c h          <> cha
+j            <> ja
+j h          <> jha
+n tildeabove <> nya
+t dotbelow   <> tta
+t dotbelow h <> ttha
+d dotbelow   <> dda
+d dotbelow h <> ddha
+n dotbelow   <> nna
+
+
+
+t       <> ta
+t h     <> tha
+d       <> da
+d h     <> dha
+n       <> na
+p       <> pa
+p h     <> pha
+b       <> ba
+b h     <> bha
+m       <> ma
+r macronbelow <> rra
+l macronbelow <> llla
+y            <> ya
+r breveabove > rra zwj
+r            <> ra
+l            <> la
+v            <> va
+s acute    <> sha
+s dotbelow <> ssa
+s          <> sa
+h          <> ha
+l dotbelow   <> lla
+degree  <> abbrev
+bar     <> danda
+bar bar <> dbldanda
+UniClass[vyanjana] = (ka .. ha extravyanjana)
+
+; colon / [vyanjana] _ [vyanjana]  <> virama zwj
+
+colon <> zwj
+; pass(Unicode)
+;
+; UniClass[vyanjana] = (ka .. ha)
+;
+; lla / [vyanjana] _ > lsvara
+; lla / # _ > lsvara
+; lla / _ # > lsvara
+pass(unicode)
+UniClass[svaras] = (udatta anudatta)
+UniClass[bindus] = (anusvara candrabindu)
+
+[svaras]=v1 [bindus]=b1 > @b1 @v1
+pass(Unicode)
+
+UniClass[vyanjana] = (ka .. ha extravyanjana)
+
+UniClass[svara] = (         Asvara \
+                   isvara   Isvara \
+                   usvara   Usvara \
+                   rsvara   Rsvara \
+                   lsvara   Lsvara \
+                   ecandra esvara Esvara \
+                   aisvara \
+                   ocandra osvara Osvara \
+                   ausvara)
+
+UniClass[matra] = (       Amatra \
+                   imatra Imatra \
+                   umatra Umatra \
+                   rmatra Rmatra \
+                   lmatra Lmatra \
+                   ecandramatra ematra Ematra \
+                   aimatra \
+                   ocandramatra omatra Omatra \
+                   aumatra)
+
+[svara] / [vyanjana] _ > [matra]
+UniClass[combiners] = ([matra] \
+                       candrabindu anusvara visarga \
+                       udatta anudatta \
+)
+
+[combiners]=c1 / # _ > nbsp @c1
+pass(Unicode)
+
+UniClass[vyanjana] = (ka .. ha extravyanjana)
+
+[vyanjana] / _ [vyanjana] > [vyanjana] virama
+pass(Unicode)
+
+UniClass[vyanjana] = (ka .. ha extravyanjana)
+
+UniClass[novirama] = (asvara Amatra \
+                      imatra Imatra \
+                      umatra Umatra \
+                      rmatra Rmatra \
+                      lmatra Lmatra \
+                      ematra Ematra ecandramatra aimatra \
+                      omatra Omatra ocandramatra aumatra \
+                      virama)
+
+[vyanjana] / _ ^[novirama] <> [vyanjana] virama
+pass(Unicode)
+
+UniClass[vyanjana] = (ka .. ha extravyanjana)
+
+[vyanjana] asvara <> [vyanjana]
+
+
+

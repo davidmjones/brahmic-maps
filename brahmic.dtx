@@ -1,0 +1,2628 @@
+% \def\filename{brahmic.dtx}
+% \def\fileversion{0.00 beta}
+% \def\filedate{2015/06/24}
+%
+% \iffalse meta-comment
+%
+% David M. Jones
+% email: dmj@ams.org
+%
+% Copyright 2015 David M. Jones
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3c
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3c or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+% 
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is David M. Jones.
+%
+% \fi
+%
+% \iffalse
+%<*driver>
+\NeedsTeXFormat{LaTeX2e}
+\documentclass{ltxdoc}
+
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{2}
+
+\usepackage{hyperref}
+
+\usepackage{metalogo}
+
+\usepackage{fontspec}
+
+% Brill 2.06: http://www.brill.com/about/brill-fonts
+
+\setmainfont[Numbers=Lining]{Brill}
+
+% No endorsement is meant for any of these fonts (excerpt for Murty
+% Hindi).  I simply looked for the first font that had all or most of
+% the characters I needed.  I'm open to suggestions for replacement
+% fonts, especially free alternatives to Arial Unicode MS.
+
+% Murty Hindi 1.01: http://www.murtylibrary.com/mcli-fonts.php
+
+\newfontfamily\dev[Script=Devanagari,Mapping=deva]{Murty Hindi}
+\newfontfamily\san[Script=Devanagari,Mapping=deva-san]{Murty Hindi}
+
+\newfontfamily\beng[Mapping=beng]{SolaimanLipi}
+\newfontfamily\bengalt[Mapping=beng]{AponaLohit}
+\newfontfamily\gujr[Mapping=gujr]{Rekha}
+\newfontfamily\guru[Mapping=guru]{AnmolUni}
+\newfontfamily\knda[Mapping=knda]{Arial Unicode MS}
+\newfontfamily\mlym[Mapping=mlym]{Arial Unicode MS}
+\newfontfamily\orya[Mapping=orya]{Arial Unicode MS}
+\newfontfamily\sinh[Mapping=sinh]{Akshar Unicode}
+\newfontfamily\taml[Mapping=taml]{Kadambri}
+\newfontfamily\telu[Mapping=telu]{Arial Unicode MS}
+
+\usepackage{sanskrit}
+
+\renewenvironment{quote}
+               {\list{}{\rightmargin0pt }%
+                \item\relax}
+               {\endlist}
+
+\usepackage{longtable}
+\usepackage{array}
+
+\newcommand{\A}[1]{%
+    #1&#1&#1&#1&#1&#1&#1&#1&#1&#1&#1&#1\\
+}
+
+\newcommand{\NT}[1]{% Not Tamil
+    #1&#1&#1&#1&#1&#1&#1&&#1&#1&#1&#1\\
+}
+
+\newcommand{\SINH}[1]{%
+    #1&&&&&&&&&&&#1\\
+}
+
+\def\B#1{\multicolumn{#1}{l}{}}
+
+\def\L{\normalfont}
+\renewcommand{\S}{\textbf}
+\begin{document}
+\DeleteShortVerb{\|}
+\title{Brahmic TECkit mappings}
+\author{David M. Jones}
+\date{Version \fileversion, \filedate}
+\DocInput{brahmic.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \maketitle
+%
+% \begin{abstract}
+% This file defines a set of TECkit mappings based on ISO 15919
+% \emph{Transliteration of Devanagari and related Indic scripts into
+%   Latin characters} for reverse transliteration of Latin-based
+% characters into various Indic scripts in the Brahmic family.
+% \end{abstract}
+%
+% \tableofcontents
+%
+% \section{Introduction}
+%
+% This grew out of my experiments with typsetting Sanskrit text using
+% \XeLaTeX, which in turn stemmed from my attempts to satisfy my
+% curiosity about how the Devanagari script works.  With these
+% mappings and suitable macros, you can write\footnote{Quoted from
+% section~20 of \emph{A Sanskrit Grammar for Students}\cite{sgs}}
+% \begin{verbatim}
+% A simple \textbf{liquid vowel} followed by any \emph{other} vowel or
+% by a diphthong is changed into its semivowel;—e.g.\ \N{dadhi atra} =
+% \NS{dadhy atra}; \N{kartṛ uta} = \NS{kartr uta}; \N{madhu iva} = \NS{madv
+%   iva}; \N{nadī artham} = \N{nadyartham}.\end{verbatim}
+% and get
+% \begin{quote}
+% A simple \textbf{liquid vowel} followed by any \emph{other} vowel or
+% by a diphthong is changed into its semivowel;—e.g.\ \N{dadhi atra} =
+% \NS{dadhy atra}; \N{kartṛ uta} = \NS{kartr uta}; \N{madhu iva} = \NS{madv
+%   iva}; \N{nadī artham} = \N{nadyartham}.
+% \end{quote}
+% Since the same input is used to generate both the Roman and the
+% Devanagari text, this eliminates the possibility that a typo in one
+% or the other will cause a mismatch—assuming the mapping is implemented
+% correctly, of course!
+%
+% \subsection{Acknowledgements}
+%
+% The first draft map was based on version~1.2 of
+% \texttt{velthuis-sanskrit.map}.  I've mauled the code almost beyond
+% recognition, but it's influence is still apparent throughout
+% Phase~2.
+%
+% \subsection{Caveats}
+%
+% I'm fairly confident that the Devanagari transliteration
+% works,\footnote{At least, it did before I started adding re-arranging
+% things to add other scripts.} but I'm much less sanguine about
+% the other scripts, of which I lack even the modest knowledge I have
+% about Devanagari.  I'd be grateful for any feedback from more
+% knowledgeable users.
+%
+% \subsection{Supported scripts}
+%
+% \begin{tabular}{@{}ll}
+% deva & Devanagari\\
+% beng & Bengali\\
+% gujr & Gujarati\\
+% guru & Gurmukhi\\
+% knda & Kannada\\
+% mlym & Malayalam\\
+% orya & Oriya\\
+% sinh & Sinhala\\
+% taml & Tamil\\
+% telu & Telugu
+% \end{tabular}
+%
+% \section{Transcription table}
+%
+% This table is adapted from~\cite{iso15919}.  The main (intentional)
+% departures are in the rows for \S{e}, \S{ē}, \S{ê}, \S{o}, \S{ō},
+% \S{ô}, and \S{ṃ}.  Strictly speaking, ISO~15919 only allows them in
+% selected scripts, but for convenience, I've allowed them to be used
+% in all scripts as synonyms for something similar.
+%
+% For purposes of illustration, I tried to find fonts that contain all
+% of the characters covered, but there are still some missing glyphs
+% in Devanagari, Kannada, Malayalam, Oriya, Telugu.  I'd be grateful
+% for suggestions of fonts containing those characters.
+
+% \begin{longtable}{@{}
+%     >{\bfseries}l
+%     >{\dev}l
+%     >{\san}l
+%     >{\guru}l
+%     >{\gujr}l
+%     >{\beng}l
+%     >{\orya}l
+%     >{\taml}l
+%     >{\mlym}l
+%     >{\knda}l
+%     >{\telu}l
+%     >{\sinh}l
+%     @{}}
+% \L Latin
+% & \L Dev.
+% & \L San.
+% & \L Gur.
+% & \L Guj.
+% & \L Ben.
+% & \L Ori.
+% & \L Tam.
+% & \L Mal.
+% & \L Kan.
+% & \L Tel.
+% & \L Sin.
+% % \endhead
+% 
+% \A{a}
+% \A{ā}
+% \SINH{æ}
+% \SINH{ǣ}
+% \A{i}
+% \A{ī}
+% \A{u}
+% \A{ū}
+% ŭ & \B{7} & ŭ\\
+% r̥  & r̥  & r̥  & & r̥  & r̥  & r̥  & & r̥  & r̥  & r̥  & r̥ \\
+% 
+% r̥̄ & r̥̄ & r̥̄ & & r̥̄ & r̥̄ & r̥̄ & & r̥̄ & r̥̄ & r̥̄ & r̥̄ \\
+% 
+% l̥  & l̥  & l̥  & & l̥  & l̥  & l̥  & & l̥  & l̥  & l̥  & l̥  \\
+% 
+% l̥̄ & l̥̄ & l̥̄ & & l̥̄ & l̥̄ & l̥̄ & & l̥̄ & l̥̄ & l̥̄ & l̥̄\\[\smallskipamount]
+% 
+% \A{e}
+% \A{ē}
+% \A{ê}
+% \A{ai}
+% \A{o}
+% \A{ō}
+% \A{ô}
+% \A{au}[\smallskipamount]
+% \NT{ṁ}
+% \NT{ṃ}[\jot]
+% m̐ & m̐ & m̐  & m̐  & m̐  & m̐  & m̐  & \B{3} & m̐ \\
+% n̆&&&&&&&&&&n̆\\
+% \NT{ḥ}
+% ẖ &  ẖ & ẖ &&&&&&&ẖ\\
+% ḫ &  ḫ & ḫ &&&&&&&ḫ\\
+% ḵ & &&&&&& ḵ\\[2\smallskipamount]
+% 
+% \A{ka}
+% \NT{kha}
+% \NT{ga}
+% \NT{gha}
+% \A{ṅa}
+% \SINH{n̆ga}[\smallskipamount]
+% 
+% \A{ca}
+% ĉa&&&&&&&&&&ĉa\\
+% \NT{cha}
+% \A{ja}
+% \NT{jha}
+% \A{ña}
+% \SINH{n̆ja}[\smallskipamount]
+% 
+% \A{ṭa}
+% \NT{ṭha}
+% \NT{ḍa}
+% ṛa & ṛa & & ṛa && ṛa & ṛa\\
+% \NT{ḍha}
+% ṛha & ṛha & & && ṛha & ṛha\\
+% \A{ṇa}
+% \SINH{n̆ḍa}[\smallskipamount]
+% 
+% \A{ta}
+% \NT{tha}
+% \NT{da}
+% \NT{dha}
+% \A{na}
+% \SINH{n̆da}[\smallskipamount]
+% 
+% \A{pa}
+% \NT{pha}
+% \NT{ba}
+% \NT{bha}
+% \A{ma}
+% \SINH{m̆ba}[\smallskipamount]
+% 
+% ṟa & ṟa & \B{5} & ṟa & ṟa & ṟa & ṟa & ṟa \\
+% ṯa & \B{7} & ṯa\\
+% ṉa & ṉa & \B{5} & ṉa & ṉa & \B{2} & ṉa \\
+% ḻa & ḻa & \B{5} & ḻa & ḻa & ḻa & ḻa & ḻa\\[\smallskipamount]
+% 
+% \A{ya}
+% ẏa & ẏa & \B{3} & ẏa & ẏa \\
+% \A{ra}
+% r̆ & r̆ & r̆ \\
+% \A{la}
+% ḷa & ḷa & ḷa & ḷa & ḷa  & & ḷa & ḷa & ḷa & ḷa & ḷa & ḷa \\
+% \A{va}[\smallskipamount]
+% 
+% \A{śa}
+% ṣa & ṣa & ṣa  & & ṣa & ṣa & ṣa & ṣa & ṣa & ṣa & ṣa & ṣa \\
+% \A{sa}
+% \A{ha}[\smallskipamount]
+% ' & ' & ' & & ' & \bengalt' & ' & & ' & ' & ' \\[\smallskipamount]
+% 
+% qa&qa&&qa&qa&qa\\
+% ḵẖa&ḵẖa&&ḵẖa&ḵẖa&ḵẖa\\
+% ġa&ġa&&ġa&ġa&ġa\\
+% za&za&&za&za&za&\B{3}&za & za\\
+% fa&fa&&fa&fa&fa&\B{3}&fa&&fa\\
+% wa&\B{4}&wa&wa\\
+% 
+% \end{longtable}
+%
+% \subsection{Special conventions}
+%
+% \begin{itemize}\parskip0pt  \itemsep0pt
+%
+% \item A colon (:) can be used to break a ligature or diphthong:
+%   \N{b:ha} vs.\ \N{bha}, \N{pra:u} vs.\ \N{prau}.
+%
+% \item Use U+007C VERTICAL LINE for dandas: \D{|}, \D{||}.
+%
+% \end{itemize}
+%
+% \subsection{Special extensions for Sanskrit}
+%
+% \begin{itemize}\parskip0pt \itemsep0pt
+%
+% \item \S{ṛ} can be used instead of \S{r̥} for vocalic~r.
+%
+% \item \S{ḷ} can be used immediately following a \S{k} for the
+% vocalic~l, thus the root \textdeva{kḷp} can be typed “kḷp”
+% rather than “kl̥p”.
+%
+% \item A diaeresis can also be to break a diphthong: \N{praü} vs.\
+%   \N{prau}.
+%
+% \item \S{n̄} is a synonym for~\S{ṅ}.
+%
+% \item \S{ç} is a synonym for~\S{ś}.
+%
+% \item \S{āi} and \S{āu} are synonyms for \S{ai} and \S{au}, respectively.
+%
+% \end{itemize}
+%
+% \begin{thebibliography}{9}
+%
+% \bibitem{iso15919} Anthony P. Stone.  “Transliteration of Indic
+%   Scripts: How to use ISO 15919.”
+%   \url{http://homepage.ntlworld.com/stone-catend/trind.htm}
+%
+% \bibitem{psd} Arthur A. Macdonell, \emph{A Sanskrit-English
+%     Dictionary}.  Longmans, Green, and Co., London, 1893.
+%
+% \bibitem{sgs} Arthur A. MacDonell, \emph{A Sanskrit Grammar for
+%     Students}, third edition. Oxford University Press, 1927.
+%
+% \bibitem{unicode7} The Unicode Consortium.  \emph{The Unicode
+%     Standard: Version 7.0—Core Specification}.
+%   \url{http://www.unicode.org/versions/Unicode7.0.0/UnicodeStandard-7.0.pdf}
+%   (modification date 09/26/2014 03:27:41 PM; md5sum
+%   aa6c89d24d7075f93259069fae273251).
+%
+% \bibitem{wg} William Dwight Whitney, \emph{Sanskrit Grammar:
+%     Including both the Classical Language, and the older Dialects,
+%     of Veda and Brahmana}.  Harvard University Press, fourteenth
+%   printing, 1975.
+%
+% \iffalse
+% \bibitem{wg} William Dwight Whitney, \emph{The Roots, Verb-Forms and
+%     Primary Derivatives of the Sanskrit Language}.  Breitkopf and
+%   Härtel, 1885.
+% \fi
+%
+% \end{thebibliography}
+%
+% \StopEventually{}
+%
+% \section{TECkit header}
+%
+%    \begin{macrocode}
+LHSName "Unicode/ISO 15919"
+%<deva&!san>RHSName "Unicode/Devanagari"
+%<deva&san>RHSName "Unicode/Sanskrit"
+%<beng>RHSName "Unicode/Bengali"
+%<gujr>RHSName "Unicode/Gujarati"
+%<guru>RHSName "Unicode/Gurmukhi"
+%<knda>RHSName "Unicode/Kannada"
+%<mlym>RHSName "Unicode/Malayalam"
+%<orya>RHSName "Unicode/Oriya"
+%<sinh>RHSName "Unicode/Sinhala"
+%<taml>RHSName "Unicode/Tamil"
+%<telu>RHSName "Unicode/Telugu"
+Version "0.00 beta"
+%    \end{macrocode}
+%
+% \section{Overview}
+%
+% Conceptually, the mapping process is divided into two main phases,
+% the first of which translates user input into an internal normalized
+% form and the second of which translates that normalized form into
+% the desired output alphabet.  So, we are actually dealing with three
+% different sets of characters:
+% \begin{enumerate}
+%
+% \item User input: The specific Latin-based Unicode characters
+%   supplied by the user.  This can be a mix of upper and lower case
+%   and precomposed or fully decomposed characters.
+%
+% \item Normalized input: During \hyperref[phase1]{Phase~1}, the user
+%   input is converted into a normalized form, based on, but not
+%   identical with, Unicode Normalization Form~D\@.  In broad terms,
+%   all characters are downcased, and combining marks representing
+%   long vowels or tone marks are separated from their base
+%   characters, while combining marks designating distinct consonants
+%   are combined with their base characters.  In addition, alternative
+%   representations are merged and in some cases context-sensitive
+%   disambiguation is performed.
+%
+% \item Output: During \hyperref[phase2]{Phase~2}, the normalized
+%   input is converted into the desired output script.
+%
+% \end{enumerate}
+%
+% \section{Normalized input characters}
+%
+% \subsection{Vowels and diphthongs}
+%
+%    \begin{macrocode}
+Define a        U+0061
+Define ae       U+00E6
+Define b        U+0062
+Define c        U+0063
+Define d        U+0064
+Define e        U+0065
+Define f        U+0066
+Define g        U+0067
+Define h        U+0068
+Define i        U+0069
+Define j        U+006A
+Define k        U+006B
+Define l        U+006C
+Define m        U+006D
+Define n        U+006E
+Define o        U+006F
+Define p        U+0070
+Define q        U+0071
+Define r        U+0072
+Define s        U+0073
+Define t        U+0074
+Define u        U+0075
+Define v        U+0076
+Define w        U+0077
+; Define x        U+0078
+Define y        U+0079
+Define z        U+007A
+%    \end{macrocode}
+%    It will be convenient to have single-character representations
+%    for vocalic~r and vocalic~l, but Unicode doesn't have precomposed
+%    characters for l or~r with a ring below.  So, for convenience, we
+%    will map them to the PUA in our internal representation.
+%    \begin{macrocode}
+Define ri       U+E000 ; PUA
+Define lry      U+E001 ; PUA
+%    \end{macrocode}
+%
+%    \subsubsection{Symbols}
+%
+%    \begin{macrocode}
+Define apos     U+0027
+; Define colon    U+003A ; predefined
+Define degree   U+00B0
+Define bar      U+007C
+
+Define lbrack   U+005B
+Define rbrack   U+005D
+%    \end{macrocode}
+%
+% \subsection{Combining accents}
+%
+% Define short names for the various combining accents we
+% need.\footnote{The names tilde, macron, breve, dot\_above, and
+%   diaeresis are predefined the compiler to refer to the spacing
+%   variants of those accents, so I've had to choose alternate names.}
+%    \begin{macrocode}
+Define grave        U+0300
+Define acute        U+0301
+Define circumflex   U+0302
+Define tildeabove   U+0303
+Define macronabove  U+0304
+Define breveabove   U+0306
+Define dotabove     U+0307
+Define dieresis     U+0308
+Define vert         U+030D
+Define CANDRABINDU  U+0310
+Define dotbelow     U+0323
+Define ringbelow    U+0325
+Define ccedilla     U+0327
+Define hookbelow    U+0328
+Define brevebelow   U+032E
+Define macronbelow  U+0331
+%    \end{macrocode}
+%
+% \section{Output Characters}
+%
+%    Now define the output space.
+% \subsection{Script-independent characters}
+%    \begin{macrocode}
+Define danda    U+0964
+Define dbldanda U+0965
+
+Define zwnj     U+200C ; ZERO WIDTH NON-JOINER
+Define zwj      U+200D ; ZERO WIDTH JOINER
+Define hiatus   U+0020 ; SPACE
+Define nbsp     U+00A0 ; NO-BREAK SPACE
+
+Define NOTDEF   U+FFFD
+%    \end{macrocode}
+%
+% \subsection{Devanagari}
+%
+%    \begin{macrocode}
+%<*deva>
+; Define altcandrabindu U+0900
+Define candrabindu U+0901
+Define anusvara    U+0902
+Define visarga     U+0903
+
+; Define ashort    U+0904
+Define asvara      U+0905
+Define Asvara      U+0906
+
+Define isvara      U+0907
+Define Isvara      U+0908
+
+Define usvara      U+0909
+Define Usvara      U+090A
+
+Define rsvara      U+090B
+Define lsvara      U+090C
+
+%<*san>
+Define esvara      U+090F
+Define Esvara      U+090F
+Define ecandra     U+090F
+%</san>
+%<*!san>
+Define esvara      U+090E
+Define Esvara      U+090F
+Define ecandra     U+090D
+%</!san>
+
+Define aisvara     U+0910
+
+%<*san>
+Define osvara      U+0913
+Define Osvara      U+0913
+Define ocandra     U+0913
+%</san>
+%<*!san>
+Define osvara      U+0912
+Define Osvara      U+0913
+Define ocandra     U+0911
+%</!san>
+
+Define ausvara     U+0914
+
+Define ka          U+0915
+Define kha         U+0916
+Define ga          U+0917
+Define gha         U+0918
+Define nga         U+0919
+
+Define ca          U+091A
+Define cha         U+091B
+Define ja          U+091C
+Define jha         U+091D
+Define nya         U+091E
+
+Define tta         U+091F
+Define ttha        U+0920
+Define dda         U+0921
+Define ddha        U+0922
+Define nna         U+0923
+
+Define ta          U+0924
+Define tha         U+0925
+Define da          U+0926
+Define dha         U+0927
+Define na          U+0928
+
+Define nnna        U+0929
+
+Define pa          U+092A
+Define pha         U+092B
+Define ba          U+092C
+Define bha         U+092D
+Define ma          U+092E
+
+Define ya          U+092F
+Define ra          U+0930
+Define rra         U+0931
+Define la          U+0932
+Define lla         U+0933
+Define llla        U+0934
+Define va          U+0935
+
+Define sha         U+0936
+Define ssa         U+0937
+Define sa          U+0938
+Define ha          U+0939
+
+; Define oematra     U+093A
+; Define OEmatra     U+093B
+
+Define nukta       U+093C
+Define avagraha    U+093D
+
+Define Amatra      U+093E
+
+Define imatra      U+093F
+Define Imatra      U+0940
+
+Define umatra      U+0941
+Define Umatra      U+0942
+
+Define rmatra      U+0943
+Define Rmatra      U+0944
+
+%<*san>
+Define ematra       U+0947
+Define Ematra       U+0947
+Define ecandramatra U+0947
+%</san>
+%<*!san>
+Define ematra       U+0946
+Define Ematra       U+0947
+Define ecandramatra U+0945
+%</!san>
+
+Define aimatra     U+0948
+
+%<*san>
+Define omatra       U+094B
+Define Omatra       U+094B
+Define ocandramatra U+094B
+%</san>
+%<*!san>
+Define omatra       U+094A
+Define Omatra       U+094B
+Define ocandramatra U+0949
+%</!san>
+
+Define aumatra     U+094C
+
+Define virama      U+094D
+; Define prishthamatra U+094E
+; Define awmatra   U+094F
+; Define om        U+0950
+
+Define udatta      U+0951
+Define anudatta    U+0952
+
+; Define devgrave  U+0953
+; Define devacute  U+0954
+
+; Define Ecandra   U+0955
+
+; Define uematra   U+0956
+; Define UEmatra   U+0957
+
+%<*nukta>
+Define qa          U+0958
+Define khha        U+0959
+Define ghha        U+095A
+Define za          U+095B
+Define dddha       U+095C
+Define rha         U+095D
+Define fa          U+095E
+Define yya         U+095F
+%</nukta>
+
+%<*!nukta>
+Define qa          NOTDEF
+Define khha        NOTDEF
+Define ghha        NOTDEF
+Define za          NOTDEF
+Define dddha       NOTDEF
+Define rha         NOTDEF
+Define fa          NOTDEF
+Define yya         NOTDEF
+%</!nukta>
+
+Define Rsvara      U+0960
+Define Lsvara      U+0961
+Define lmatra      U+0962
+Define Lmatra      U+0963
+
+Define zero        U+0966
+Define one         U+0967
+Define two         U+0968
+Define three       U+0969
+Define four        U+096A
+Define five        U+096B
+Define six         U+096C
+Define seven       U+096D
+Define eight       U+096E
+Define nine        U+096F
+
+Define abbrev      U+0970
+
+; Define devdot    U+0971
+; Define acandra    U+0972
+; Define oesvara    U+0973
+; Define OEsvara    U+0974
+; Define awsvara    U+0975
+; Define uesvara    U+0976
+; Define UEsvara    U+0977
+; Define ddamarwari U+0978
+; Define zha        U+0979
+; Define jjya       U+097a
+; Define gga        U+097b
+; Define jja        U+097c
+; Define devglottal U+097d
+; Define ddda       U+097e
+; Define bba        U+097f
+
+%<san>Define svarita_k_i U+1CD7
+
+Define jihvamuliya U+1CF5
+Define upadhmaniya U+1CF6
+
+Define extravyanjana dddha fa ghha khha lla llla qa rha yya za
+%</deva>
+%    \end{macrocode}
+%
+% \subsection{Bengali}
+%
+%    \begin{macrocode}
+%<*beng>
+; Define anji      U+0980
+Define candrabindu U+0981
+Define anusvara    U+0982
+Define visarga     U+0983
+
+Define asvara      U+0985
+Define Asvara      U+0986
+
+Define isvara      U+0987
+Define Isvara      U+0988
+
+Define usvara      U+0989
+Define Usvara      U+098A
+
+Define rsvara      U+098B
+Define lsvara      U+098C
+
+Define esvara      U+098F
+Define Esvara      U+098F
+Define ecandra     U+098F
+Define aisvara     U+0990
+
+Define osvara      U+0993
+Define Osvara      U+0993
+Define ocandra     U+0993
+Define ausvara     U+0994
+
+Define ka          U+0995
+Define kha         U+0996
+Define ga          U+0997
+Define gha         U+0998
+Define nga         U+0999
+
+Define ca          U+099A
+Define cha         U+099B
+Define ja          U+099C
+Define jha         U+099D
+Define nya         U+099E
+
+Define tta         U+099F
+Define ttha        U+09A0
+Define dda         U+09A1
+Define ddha        U+09A2
+Define nna         U+09A3
+
+Define ta          U+09A4
+Define tha         U+09A5
+Define da          U+09A6
+Define dha         U+09A7
+Define na          U+09A8
+
+Define pa          U+09AA
+Define pha         U+09AB
+Define ba          U+09AC
+Define bha         U+09AD
+Define ma          U+09AE
+
+Define ya          U+09AF
+Define ra          U+09B0
+Define la          U+09B2
+Define lla         NOTDEF
+Define va          U+09F1
+
+Define sha         U+09B6
+Define ssa         U+09B7
+Define sa          U+09B8
+Define ha          U+09B9
+
+Define nukta       U+09BC
+Define avagraha    U+09BD
+
+Define Amatra      U+09BE
+
+Define imatra      U+09BF
+Define Imatra      U+09C0
+
+Define umatra      U+09C1
+Define Umatra      U+09C2
+
+Define rmatra      U+09C3
+Define Rmatra      U+09C4
+
+Define ematra       U+09C7
+Define Ematra       U+09C7
+Define ecandramatra U+09C7
+Define aimatra      U+09C8
+
+Define omatra       U+09CB
+Define Omatra       U+09CB
+Define ocandramatra U+09CB
+Define aumatra      U+09CC
+
+Define virama      U+09CD
+
+Define khandata    U+09CE
+
+Define udatta      NOTDEF
+Define anudatta    NOTDEF
+
+Define aulength    U+09D7
+
+Define dddha       U+09DC
+
+Define qa          U+E002 ; PUA
+Define khha        U+E005 ; PUA
+Define ghha        U+E007 ; PUA
+Define za          U+E008 ; PUA
+Define rra         NOTDEF
+Define rha         U+09DD
+Define fa          U+E009 ; PUA
+Define yya         U+09DF
+
+Define Rsvara      U+09E0
+Define Lsvara      U+09E1
+Define lmatra      U+09E2
+Define Lmatra      U+09E3
+
+Define zero        U+09E6
+Define one         U+09E7
+Define two         U+09E8
+Define three       U+09E9
+Define four        U+09EA
+Define five        U+09EB
+Define six         U+09EC
+Define seven       U+09ED
+Define eight       U+09EE
+Define nine        U+09EF
+
+Define wa          U+E010 ; PUA
+
+; Define ramd U+09F0
+; Define rald U+09F1
+; Define rupeemark U+09F2
+; Define rupeesign U+09F3
+; Define curnumone U+09F4
+; Define curnumtwo U+09F5
+; Define curnumthree U+09F6
+; Define curnumfour U+09F7
+; Define curnumoneless U+09F8
+; Define curdenosixteen U+09F9
+; Define isshar U+09FA
+; Define ganda mark U+09FB
+
+Define abbrev      U+0970
+
+Define extravyanjana dddha fa ghha khha qa rra va wa za
+%</beng>
+%    \end{macrocode}
+%
+% \subsection{Gujarati}
+%
+%    \begin{macrocode}
+%<*gujr>
+Define candrabindu U+0A81
+Define anusvara    U+0A82
+Define visarga     U+0A83
+
+Define asvara      U+0A85
+Define Asvara      U+0A86
+
+Define isvara      U+0A87
+Define Isvara      U+0A88
+
+Define usvara      U+0A89
+Define Usvara      U+0A8A
+
+Define rsvara      U+0A8B
+Define lsvara      U+0A8C
+
+Define esvara      U+0A8F
+Define Esvara      U+0A8F
+Define ecandra     U+0A8D
+Define aisvara     U+0A90
+
+Define osvara      U+0A93
+Define Osvara      U+0A93
+Define ocandra     U+0A91
+Define ausvara     U+0A94
+
+Define ka          U+0A95
+Define kha         U+0A96
+Define ga          U+0A97
+Define gha         U+0A98
+Define nga         U+0A99
+
+Define ca          U+0A9A
+Define cha         U+0A9B
+Define ja          U+0A9C
+Define jha         U+0A9D
+Define nya         U+0A9E
+
+Define tta         U+0A9F
+Define ttha        U+0AA0
+Define dda         U+0AA1
+Define ddha        U+0AA2
+Define nna         U+0AA3
+
+Define ta          U+0AA4
+Define tha         U+0AA5
+Define da          U+0AA6
+Define dha         U+0AA7
+Define na          U+0AA8
+
+Define pa          U+0AAA
+Define pha         U+0AAB
+Define ba          U+0AAC
+Define bha         U+0AAD
+Define ma          U+0AAE
+
+Define ya          U+0AAF
+Define ra          U+0AB0
+Define la          U+0AB2
+Define lla         U+0AB3
+Define va          U+0AB5
+
+Define sha         U+0AB6
+Define ssa         U+0AB7
+Define sa          U+0AB8
+Define ha          U+0AB9
+
+Define nukta       U+0ABC
+Define avagraha    U+0ABD
+
+Define Amatra      U+0ABE
+
+Define imatra      U+0ABF
+Define Imatra      U+0AC0
+
+Define umatra      U+0AC1
+Define Umatra      U+0AC2
+
+Define rmatra      U+0AC3
+Define Rmatra      U+0AC4
+
+Define ematra      U+0AC7
+Define Ematra      U+0AC7
+Define ecandramatra U+0AC5
+Define aimatra     U+0AC8
+
+Define omatra       U+0ACB
+Define Omatra       U+0ACB
+Define ocandramatra U+0AC9
+Define aumatra      U+0ACC
+
+Define virama      U+0ACD
+; Define om        U+0AD0
+
+Define udatta      NOTDEF
+Define anudatta    NOTDEF
+
+Define qa          U+E003 ; PUA
+Define khha        U+E006 ; PUA
+Define ghha        U+E007 ; PUA
+Define za          U+E008 ; PUA
+Define rra         NOTDEF
+Define rha         NOTDEF
+Define fa          U+E009 ; PUA
+Define yya         NOTDEF
+
+Define Rsvara      U+0AE0
+Define Lsvara      U+0AE1
+Define lmatra      U+0AE2
+Define Lmatra      U+0AE3
+
+Define zero        U+0AE6
+Define one         U+0AE7
+Define two         U+0AE8
+Define three       U+0AE9
+Define four        U+0AEA
+Define five        U+0AEB
+Define six         U+0AEC
+Define seven       U+0AED
+Define eight       U+0AEE
+Define nine        U+0AEF
+
+Define abbrev      U+0AF0
+
+; Define rupeemark NOTDEF
+; Define rupeesign U+0AF1
+
+Define extravyanjana fa ghha khha qa za
+%</gujr>
+%    \end{macrocode}
+%
+% \subsection{Gurmukhi}
+%
+%    \begin{macrocode}
+%<*guru>
+Define candrabindu U+0A01
+Define anusvara    U+0A02
+Define visarga     U+0A03
+
+Define asvara      U+0A05
+Define Asvara      U+0A06
+
+Define isvara      U+0A07
+Define Isvara      U+0A08
+
+Define usvara      U+0A09
+Define Usvara      U+0A0A
+
+Define rsvara      NOTDEF
+Define Rsvara      NOTDEF
+
+Define lsvara      NOTDEF
+Define Lsvara      NOTDEF
+
+Define esvara      U+0A0F
+Define Esvara      U+0A0F
+Define ecandra     U+0A0F
+Define aisvara     U+0A10
+
+Define osvara      U+0A13
+Define Osvara      U+0A13
+Define ocandra     U+0A13
+Define ausvara     U+0A14
+
+Define ka          U+0A15
+Define kha         U+0A16
+Define ga          U+0A17
+Define gha         U+0A18
+Define nga         U+0A19
+
+Define ca          U+0A1A
+Define cha         U+0A1B
+Define ja          U+0A1C
+Define jha         U+0A1D
+Define nya         U+0A1E
+
+Define tta         U+0A1F
+Define ttha        U+0A20
+Define dda         U+0A21
+Define ddha        U+0A22
+Define nna         U+0A23
+
+Define ta          U+0A24
+Define tha         U+0A25
+Define da          U+0A26
+Define dha         U+0A27
+Define na          U+0A28
+
+Define pa          U+0A2A
+Define pha         U+0A2B
+Define ba          U+0A2C
+Define bha         U+0A2D
+Define ma          U+0A2E
+
+Define ya          U+0A2F
+Define ra          U+0A30
+Define la          U+0A32
+Define lla         U+0A33
+Define va          U+0A35
+
+Define sha         U+0A36
+Define ssa         NOTDEF
+Define sa          U+0A38
+Define ha          U+0A39
+
+Define nukta       U+0A3C
+Define avagraha    NOTDEF
+
+Define Amatra      U+0A3E
+
+Define imatra      U+0A3F
+Define Imatra      U+0A40
+
+Define umatra      U+0A41
+Define Umatra      U+0A42
+
+Define rmatra      NOTDEF
+Define Rmatra      NOTDEF
+
+Define ematra       U+0A47
+Define Ematra       U+0A47
+Define ecandramatra U+0A47
+Define aimatra      U+0A48
+
+Define omatra       U+0A4B
+Define Omatra       U+0A4B
+Define ocandramatra U+0A4B
+Define aumatra      U+0A4C
+
+Define virama      U+0A4D
+
+Define udatta      U+0A51
+Define anudatta    NOTDEF
+
+Define qa          U+E004 ; PUA
+Define khha        U+0A59
+Define ghha        U+0A5A
+Define za          U+0A5B
+Define rra         U+0A5C
+Define rha         NOTDEF
+Define fa          U+0A5E
+Define yya         NOTDEF
+
+Define lmatra      NOTDEF
+Define Lmatra      NOTDEF
+
+Define zero        U+0A66
+Define one         U+0A67
+Define two         U+0A68
+Define three       U+0A69
+Define four        U+0A6A
+Define five        U+0A6B
+Define six         U+0A6C
+Define seven       U+0A6D
+Define eight       U+0A6E
+Define nine        U+0A6F
+
+Define abbrev      NOTDEF
+
+Define tippi       U+0A70
+
+Define addak       U+0A71
+Define iri         U+0A72
+Define ura         U+0A73
+Define ek_onkar    U+0A74
+Define yakash      U+0A75
+
+Define extravyanjana fa ghha khha qa rra za
+%</guru>
+%    \end{macrocode}
+%
+% \subsection{Kannada}
+%
+%    \begin{macrocode}
+%<*knda>
+Define candrabindu U+0C81
+Define anusvara    U+0C82
+Define visarga     U+0C83
+
+Define asvara      U+0C85
+Define Asvara      U+0C86
+
+Define isvara      U+0C87
+Define Isvara      U+0C88
+
+Define usvara      U+0C89
+Define Usvara      U+0C8A
+
+Define rsvara      U+0C8B
+
+Define lsvara      U+0C8C
+
+Define esvara      U+0C8E
+Define Esvara      U+0C8F
+Define ecandra     U+0C8F
+Define aisvara     U+0C90
+
+Define osvara      U+0C92
+Define Osvara      U+0C93
+Define ocandra     U+0C93
+Define ausvara     U+0C94
+
+Define ka          U+0C95
+Define kha         U+0C96
+Define ga          U+0C97
+Define gha         U+0C98
+Define nga         U+0C99
+
+Define ca          U+0C9A
+Define cha         U+0C9B
+Define ja          U+0C9C
+Define jha         U+0C9D
+Define nya         U+0C9E
+
+Define tta         U+0C9F
+Define ttha        U+0CA0
+Define dda         U+0CA1
+Define ddha        U+0CA2
+Define nna         U+0CA3
+
+Define ta          U+0CA4
+Define tha         U+0CA5
+Define da          U+0CA6
+Define dha         U+0CA7
+Define na          U+0CA8
+
+Define pa          U+0CAA
+Define pha         U+0CAB
+Define ba          U+0CAC
+Define bha         U+0CAD
+Define ma          U+0CAE
+
+Define ya          U+0CAF
+Define ra          U+0CB0
+Define rra         U+0CB1
+Define la          U+0CB2
+Define lla         U+0CB3
+Define va          U+0CB5
+
+Define llla        U+0CDE
+
+Define sha         U+0CB6
+Define ssa         U+0CB7
+Define sa          U+0CB8
+Define ha          U+0CB9
+
+Define nukta       U+0CBC
+Define avagraha    U+0CBD
+
+Define Amatra      U+0CBE
+
+Define imatra      U+0CBF
+Define Imatra      U+0CC0
+
+Define umatra      U+0CC1
+Define Umatra      U+0CC2
+
+Define rmatra      U+0CC3
+Define Rmatra      U+0CC4
+
+Define ematra       U+0CC6
+Define Ematra       U+0CC7
+Define ecandramatra U+0CC7
+Define aimatra      U+0CC8
+
+Define omatra       U+0CCA
+Define Omatra       U+0CCB
+Define ocandramatra U+0CCB
+Define aumatra      U+0CCC
+
+Define udatta      NOTDEF
+Define anudatta    NOTDEF
+
+Define virama         U+0CCD
+; Define length_mark    U+0CD5
+; Define ai_length_mark U+0CD6
+
+Define za          U+E008 ; PUA
+Define fa          U+E014 ; PUA
+
+Define Rsvara      U+0CE0
+Define Lsvara      U+0CE1
+Define lmatra      U+0CE2
+Define Lmatra      U+0CE3
+
+Define zero        U+0CE6
+Define one         U+0CE7
+Define two         U+0CE8
+Define three       U+0CE9
+Define four        U+0CEA
+Define five        U+0CEB
+Define six         U+0CEC
+Define seven       U+0CED
+Define eight       U+0CEE
+Define nine        U+0CEF
+
+Define abbrev      NOTDEF
+
+Define jihvamuliya U+0CF1
+Define upadhmaniya U+0CF2
+
+Define extravyanjana fa llla za 
+%</knda>
+%    \end{macrocode}
+%
+% \subsection{Malayalam}
+%
+%    \begin{macrocode}
+%<*mlym>
+Define candrabindu U+0D01
+Define anusvara    U+0D02
+Define visarga     U+0D03
+
+Define asvara      U+0D05
+Define Asvara      U+0D06
+
+Define isvara      U+0D07
+Define Isvara      U+0D08
+
+Define usvara      U+0D09
+Define Usvara      U+0D0A
+
+Define rsvara      U+0D0B
+Define lsvara      U+0D0C
+
+Define esvara      U+0D0E
+Define Esvara      U+0D0F
+Define ecandra     U+0D0F
+Define aisvara     U+0D10
+
+Define osvara      U+0D12
+Define Osvara      U+0D13
+Define ocandra     U+0D13
+Define ausvara     U+0D14
+
+Define ka          U+0D15
+Define kha         U+0D16
+Define ga          U+0D17
+Define gha         U+0D18
+Define nga         U+0D19
+
+Define ca          U+0D1A
+Define cha         U+0D1B
+Define ja          U+0D1C
+Define jha         U+0D1D
+Define nya         U+0D1E
+
+Define tta         U+0D1F
+Define ttha        U+0D20
+Define dda         U+0D21
+Define ddha        U+0D22
+Define nna         U+0D23
+
+Define ta          U+0D24
+Define tha         U+0D25
+Define da          U+0D26
+Define dha         U+0D27
+Define na          U+0D28
+
+Define nnna        U+0D29
+
+Define pa          U+0D2A
+Define pha         U+0D2B
+Define ba          U+0D2C
+Define bha         U+0D2D
+Define ma          U+0D2E
+
+Define ya          U+0D2F
+Define ra          U+0D30
+Define rra         U+0D31
+Define la          U+0D32
+Define lla         U+0D33
+Define llla        U+0D34
+Define va          U+0D35
+
+Define sha         U+0D36
+Define ssa         U+0D37
+Define sa          U+0D38
+Define ha          U+0D39
+
+Define ttta        U+0D3A
+
+Define avagraha    U+0D3D
+
+Define Amatra      U+0D3E
+
+Define imatra      U+0D3F
+Define Imatra      U+0D40
+
+Define umatra      U+0D41
+Define Umatra      U+0D42
+
+Define rmatra      U+0D43
+Define Rmatra      U+0D44
+
+Define ematra       U+0D46
+Define Ematra       U+0D47
+Define ecandramatra U+0D47
+Define aimatra      U+0D48
+
+Define omatra       U+0D4A
+Define Omatra       U+0D4B
+Define ocandramatra U+0D4B
+Define aumatra      U+0D4C
+
+Define virama      U+0D4D
+
+Define dot_reph    U+0D4E
+
+Define udatta      U+0D51
+Define anudatta    U+0D52
+
+; Define au_length_mark U+0D57
+
+Define fa          NOTDEF
+
+Define Rsvara      U+0D60
+Define Lsvara      U+0D61
+Define lmatra      U+0D62
+Define Lmatra      U+0D63
+
+Define zero        U+0D66
+Define one         U+0D67
+Define two         U+0D68
+Define three       U+0D69
+Define four        U+0D6A
+Define five        U+0D6B
+Define six         U+0D6C
+Define seven       U+0D6D
+Define eight       U+0D6E
+Define nine        U+0D6F
+
+; Define ten         U+0D70
+; Define hundred     U+0D71
+; Define thousand    U+0D72
+
+; Define quarter     U+0D73
+; Define half        U+0D74
+; Define three_quarters U+0D75
+
+; Define date_mark   U+0D79
+
+Define abbrev      NOTDEF
+
+Define chillu_nn U+0D7A
+Define chillu_n  U+0D7B
+Define chillu_rr U+0D7C
+Define chillu_l  U+0D7D
+Define chillu_ll U+0D7E
+Define chillu_k  U+0D7F
+
+Define extravyanjana llla ttta
+%</mlym>
+%    \end{macrocode}
+%
+% \subsection{Oriya}
+%
+%    \begin{macrocode}
+%<*orya>
+Define candrabindu U+0B01
+Define anusvara    U+0B02
+Define visarga     U+0B03
+
+Define asvara      U+0B05
+Define Asvara      U+0B06
+
+Define isvara      U+0B07
+Define Isvara      U+0B08
+
+Define usvara      U+0B09
+Define Usvara      U+0B0A
+
+Define rsvara      U+0B0B
+Define lsvara      U+0B0C
+
+Define esvara      U+0B0F
+Define Esvara      U+0B0F
+Define ecandra     U+0B0F
+Define aisvara     U+0B10
+
+Define osvara      U+0B13
+Define Osvara      U+0B13
+Define ocandra     U+0B13
+Define ausvara     U+0B14
+
+Define ka          U+0B15
+Define kha         U+0B16
+Define ga          U+0B17
+Define gha         U+0B18
+Define nga         U+0B19
+
+Define ca          U+0B1A
+Define cha         U+0B1B
+Define ja          U+0B1C
+Define jha         U+0B1D
+Define nya         U+0B1E
+
+Define tta         U+0B1F
+Define ttha        U+0B20
+Define dda         U+0B21
+Define ddha        U+0B22
+Define nna         U+0B23
+
+Define ta          U+0B24
+Define tha         U+0B25
+Define da          U+0B26
+Define dha         U+0B27
+Define na          U+0B28
+
+Define pa          U+0B2A
+Define pha         U+0B2B
+Define ba          U+0B2C
+Define bha         U+0B2D
+Define ma          U+0B2E
+
+Define ya          U+0B2F
+Define ra          U+0B30
+Define la          U+0B32
+Define lla         U+0B33
+Define va          U+0B35
+
+Define sha         U+0B36
+Define ssa         U+0B37
+Define sa          U+0B38
+Define ha          U+0B39
+
+Define nukta       U+0B3C
+Define avagraha    U+0B3D
+
+Define Amatra      U+0B3E
+
+Define imatra      U+0B3F
+Define Imatra      U+0B40
+
+Define umatra      U+0B41
+Define Umatra      U+0B42
+
+Define rmatra      U+0B43
+Define Rmatra      U+0B44
+
+Define ematra       U+0B47
+Define Ematra       U+0B47
+Define ecandramatra U+0B47
+Define aimatra      U+0B48
+
+Define omatra       U+0B4B
+Define Omatra       U+0B4B
+Define ocandramatra U+0B4B
+Define aumatra      U+0B4C
+
+Define virama      U+0B4D
+
+Define udatta      NOTDEF
+Define anudatta    NOTDEF
+
+; Define ai_length_mark U+0B56
+; Define au_length_mark U+0B57
+
+Define rra         U+0B5C
+Define rha         U+0B5D
+Define yya         U+0B5F
+
+Define fa          NOTDEF
+
+Define Rsvara      U+0B60
+Define Lsvara      U+0B61
+Define lmatra      U+0B62
+Define Lmatra      U+0B63
+
+Define zero        U+0B66
+Define one         U+0B67
+Define two         U+0B68
+Define three       U+0B69
+Define four        U+0B6A
+Define five        U+0B6B
+Define six         U+0B6C
+Define seven       U+0B6D
+Define eight       U+0B6E
+Define nine        U+0B6F
+
+Define abbrev      NOTDEF
+
+Define isshar           U+0B70
+Define wa               U+0B71
+Define quarter          U+0B72
+Define half             U+0B73
+Define three_quarters   U+0B74
+Define sixteenth        U+0B75
+Define eighth           U+0B76
+Define three_sixteenths U+0B77
+
+Define extravyanjana rha rra wa yya
+%</orya>
+%    \end{macrocode}
+%
+% \subsection{Sinhala}
+%
+%    \begin{macrocode}
+%<*sinh>
+Define candrabindu NOTDEF
+Define anusvara    U+0D82
+Define visarga     U+0D83
+
+Define asvara      U+0D85
+Define Asvara      U+0D86
+
+Define aesvara     U+0D87
+Define AEsvara     U+0D88
+
+Define isvara      U+0D89
+Define Isvara      U+0D8A
+
+Define usvara      U+0D8B
+Define Usvara      U+0D8C
+
+Define rsvara      U+0D8D
+Define Rsvara      U+0D8E
+
+Define lsvara      U+0D8F
+Define Lsvara      U+0D90
+
+Define esvara      U+0D91
+Define Esvara      U+0D92
+Define ecandra     U+0D92
+Define aisvara     U+0D93
+
+Define osvara      U+0D94
+Define Osvara      U+0D95
+Define ocandra     U+0D95
+Define ausvara     U+0D96
+
+Define ka          U+0D9A
+Define kha         U+0D9B
+Define ga          U+0D9C
+Define gha         U+0D9D
+Define nga         U+0D9E
+Define nnga        U+0D9F
+
+Define nnna        U+E011 ; PUA
+
+Define ca          U+0DA0
+Define cha         U+0DA1
+Define ja          U+0DA2
+Define jha         U+0DA3
+Define nya         U+0DA4
+Define jnya        U+0DA5
+Define nyja        U+0DA6
+
+Define tta         U+0DA7
+Define ttha        U+0DA8
+Define dda         U+0DA9
+Define ddha        U+0DAA
+Define nna         U+0DAB
+Define nndda       U+0DAC
+
+Define ta          U+0DAD
+Define tha         U+0DAE
+Define da          U+0DAF
+Define dha         U+0DB0
+Define na          U+0DB1
+
+Define nda         U+0DB3
+
+Define pa          U+0DB4
+Define pha         U+0DB5
+Define ba          U+0DB6
+Define bha         U+0DB7
+Define ma          U+0DB8
+Define mba         U+0DB9
+
+Define ya          U+0DBA
+Define ra          U+0DBB
+Define rra         U+E012 ; PUA
+Define la          U+0DBD
+Define va          U+0DC0
+
+Define sha         U+0DC1
+Define ssa         U+0DC2
+Define sa          U+0DC3
+Define ha          U+0DC4
+Define lla         U+0DC5
+Define fa          U+0DC6
+
+Define llla        U+E013 ; PUA
+
+Define avagraha    NOTDEF
+
+Define virama      U+0DCA
+
+Define Amatra      U+0DCF
+
+Define aematra     U+0DD0
+Define AEmatra     U+0DD1
+
+Define imatra      U+0DD2
+Define Imatra      U+0DD3
+
+Define umatra      U+0DD4
+Define Umatra      U+0DD6
+
+Define rmatra      U+0DD8
+
+Define ematra       U+0DD9
+Define Ematra       U+0DDA
+Define ecandramatra U+0DDA
+Define aimatra      U+0DDB
+
+Define omatra       U+0DDC
+Define Omatra       U+0DDD
+Define ocandramatra U+0DDD
+Define aumatra      U+0DDE
+
+Define lmatra      U+0DDF
+
+Define udatta      NOTDEF
+Define anudatta    NOTDEF
+
+Define zero        U+0DE6
+Define one         U+0DE7
+Define two         U+0DE8
+Define three       U+0DE9
+Define four        U+0DEA
+Define five        U+0DEB
+Define six         U+0DEC
+Define seven       U+0DED
+Define eight       U+0DEE
+Define nine        U+0DEF
+
+Define Rmatra      U+0DF2
+Define Lmatra      U+0DF3
+
+Define kunddaliya  U+0DF4
+
+Define abbrev      NOTDEF
+
+Define extravyanjana fa lla llla mba nda nndda nnga nnna nyja rra
+%</sinh>
+%    \end{macrocode}
+%
+% \subsection{Tamil}
+%
+%    \begin{macrocode}
+%<*taml>
+Define candrabindu NOTDEF
+Define anusvara    U+0B82
+Define visarga     U+0B83
+
+Define asvara      U+0B85
+Define Asvara      U+0B86
+
+Define isvara      U+0B87
+Define Isvara      U+0B88
+
+Define usvara      U+0B89
+Define Usvara      U+0B8A
+
+Define rsvara      NOTDEF
+Define lsvara      NOTDEF
+
+Define esvara      U+0B8E
+Define Esvara      U+0B8F
+Define ecandra     U+0B8F
+Define aisvara     U+0B90
+
+Define osvara      U+0B92
+Define Osvara      U+0B93
+Define ocandra     U+0B93
+Define ausvara     U+0B94
+
+Define ka          U+0B95
+Define kha         NOTDEF
+Define ga          NOTDEF
+Define gha         NOTDEF
+Define nga         U+0B99
+
+Define ca          U+0B9A
+Define cha         NOTDEF
+Define ja          U+0B9C
+Define jha         NOTDEF
+Define nya         U+0B9E
+
+Define tta         U+0B9F
+Define ttha        NOTDEF
+Define dda         NOTDEF
+Define ddha        NOTDEF
+Define nna         U+0BA3
+
+Define ta          U+0BA4
+Define tha         NOTDEF
+Define da          NOTDEF
+Define dha         NOTDEF
+Define na          U+0BA8
+
+Define nnna        U+0BA9
+
+Define pa          U+0BAA
+Define pha         NOTDEF
+Define ba          NOTDEF
+Define bha         NOTDEF
+Define ma          U+0BAE
+
+Define ya          U+0BAF
+Define ra          U+0BB0
+Define rra         U+0BB1
+Define la          U+0BB2
+Define lla         U+0BB3
+Define llla        U+0BB4
+Define va          U+0BB5
+
+Define sha         U+0BB6
+Define ssa         U+0BB7
+Define sa          U+0BB8
+Define ha          U+0BB9
+
+Define avagraha    NOTDEF
+
+Define Amatra      U+0BBE
+
+Define imatra      U+0BBF
+Define Imatra      U+0BC0
+
+Define umatra      U+0BC1
+Define Umatra      U+0BC2
+
+Define rmatra      NOTDEF
+Define Rmatra      NOTDEF
+
+Define ematra       U+0BC6
+Define Ematra       U+0BC7
+Define ecandramatra U+0BC7
+Define aimatra      U+0BC8
+
+Define omatra       U+0BCA
+Define Omatra       U+0BCB
+Define ocandramatra U+0BCB
+Define aumatra      U+0BCC
+
+Define virama      U+0BCD
+
+Define om          U+0BD0
+
+Define udatta      NOTDEF
+Define anudatta    NOTDEF
+
+; Define au_length_mark U+0BD7
+
+Define fa          NOTDEF
+
+Define Rsvara      NOTDEF
+Define Lsvara      NOTDEF
+Define lmatra      NOTDEF
+Define Lmatra      NOTDEF
+
+Define zero        U+0BE6
+Define one         U+0BE7
+Define two         U+0BE8
+Define three       U+0BE9
+Define four        U+0BEA
+Define five        U+0BEB
+Define six         U+0BEC
+Define seven       U+0BED
+Define eight       U+0BEE
+Define nine        U+0BEF
+
+Define abbrev      NOTDEF
+
+; Define ten         U+0BF0
+; Define hundred     U+0BF1
+; Define thousand    U+0BF2
+
+; Define daysign     U+0BF3
+; Define monthsign   U+0BF4
+; Define yearsign    U+0BF5
+; Define debitsign   U+0BF6
+; Define creditsign  U+0BF7
+; Define asabovesign U+0BF8
+; Define rupeesign   U+0BF9
+; Define numbersign  U+0BFA
+
+Define extravyanjana llla 
+%</taml>
+%    \end{macrocode}
+%
+% \subsection{Telugu}
+%
+%    \begin{macrocode}
+%<*telu>
+Define candrabindu U+0C00
+Define altcandrabindu U+0C01
+Define anusvara    U+0C02
+Define visarga     U+0C03
+
+Define asvara      U+0C05
+Define Asvara      U+0C06
+
+Define isvara      U+0C07
+Define Isvara      U+0C08
+
+Define usvara      U+0C09
+Define Usvara      U+0C0A
+
+Define rsvara      U+0C0B
+Define lsvara      U+0C0C
+
+Define esvara      U+0C0E
+Define Esvara      U+0C0F
+Define ecandra     U+0C0F
+Define aisvara     U+0C10
+
+Define osvara      U+0C12
+Define Osvara      U+0C13
+Define ocandra     U+0C13
+Define ausvara     U+0C14
+
+Define ka          U+0C15
+Define kha         U+0C16
+Define ga          U+0C17
+Define gha         U+0C18
+Define nga         U+0C19
+
+Define ca          U+0C1A
+Define cha         U+0C1B
+Define ja          U+0C1C
+Define jha         U+0C1D
+Define nya         U+0C1E
+
+Define tta         U+0C1F
+Define ttha        U+0C20
+Define dda         U+0C21
+Define ddha        U+0C22
+Define nna         U+0C23
+
+Define ta          U+0C24
+Define tha         U+0C25
+Define da          U+0C26
+Define dha         U+0C27
+Define na          U+0C28
+
+Define pa          U+0C2A
+Define pha         U+0C2B
+Define ba          U+0C2C
+Define bha         U+0C2D
+Define ma          U+0C2E
+
+Define ya          U+0C2F
+Define ra          U+0C30
+Define rra         U+0C31
+Define la          U+0C32
+Define lla         U+0C33
+Define llla        U+0C34
+Define va          U+0C35
+
+Define sha         U+0C36
+Define ssa         U+0C37
+Define sa          U+0C38
+Define ha          U+0C39
+
+Define avagraha    U+0C3D
+
+Define Amatra      U+0C3E
+
+Define imatra      U+0C3F
+Define Imatra      U+0C40
+
+Define umatra      U+0C41
+Define Umatra      U+0C42
+
+Define rmatra      U+0C43
+Define Rmatra      U+0C44
+
+Define ematra       U+0C46
+Define Ematra       U+0C47
+Define ecandramatra U+0C47
+Define aimatra      U+0C48
+
+Define omatra       U+0C4A
+Define Omatra       U+0C4B
+Define ocandramatra U+0C4B
+Define aumatra      U+0C4C
+
+Define virama      U+0C4D
+
+Define udatta      NOTDEF
+Define anudatta    NOTDEF
+
+; Define length_mark    U+0C55
+; Define ai_length_mark U+0C56
+
+Define tsa         U+0C58
+Define dza         U+0C59
+
+Define fa          NOTDEF
+
+Define Rsvara      U+0C60
+Define Lsvara      U+0C61
+Define lmatra      U+0C62
+Define Lmatra      U+0C63
+
+Define zero        U+0C66
+Define one         U+0C67
+Define two         U+0C68
+Define three       U+0C69
+Define four        U+0C6A
+Define five        U+0C6B
+Define six         U+0C6C
+Define seven       U+0C6D
+Define eight       U+0C6E
+Define nine        U+0C6F
+
+Define abbrev      NOTDEF
+
+Define zero1       U+0C78
+Define one1        U+0C79
+Define two1        U+0C7A
+Define three1      U+0C7B
+
+Define one2        U+0C7C
+Define two2        U+0C7D
+Define three2      U+0C7E
+
+Define tuumu       U+0C7F
+
+Define extravyanjana dza llla tsa
+%</telu>
+%    \end{macrocode}
+%
+% \section{Phase 1: Normalization}
+% \label{phase1}
+%
+% By first normalizing the input, we can simplify the transliteration
+% rules without sacrificing flexibility on the input side.
+%
+% \subsection{Normalization Pass 1: Decompose compound characters.}
+%
+% Separate diacritics from their base letters and sort them into a
+% standard order.  This ensures that, for example, all long vowels are
+% encoded as base letter + macron and not by a precomposed character.
+%
+%    \begin{macrocode}
+pass(NFD)
+%    \end{macrocode}
+%
+% \subsection{Normalization Pass 2: Downcase base characters.}
+%
+% Convert all uppercase letters to lowercase.
+%
+%    \begin{macrocode}
+pass(Unicode)
+
+UniClass[upper] = (U+0041 .. U+005A) ; A..Z
+UniClass[lower] = (U+0061 .. U+007A) ; a..z
+
+[upper] > [lower]
+%    \end{macrocode}
+%
+% This is also a good time to delete optional characters.
+%    \begin{macrocode}
+lbrack .* rbrack >
+%    \end{macrocode}
+%
+%    \subsection{Normalization Pass 3: Special cases and alternate
+%    transcriptions.}
+%
+% \S{l̥} and \S{r̥} always represent vocalic~l and vocalic~r.
+%    \begin{macrocode}
+pass(Unicode)
+
+l ringbelow > lry
+r ringbelow > ri
+%    \end{macrocode}
+%    For compatibility with IAST and common practice, allow \S{ṛ} as a
+%    synonym for vocalic~r in Sanskrit.
+%    \begin{macrocode}
+%<san>r dotbelow  > ri
+%    \end{macrocode}
+%    Similarly, accept \S{ḷ} as a synonym for vocalic~l in an
+%    appropriate context.  Specifically, as per section~26 of
+%    Whitney's grammar, vocalic~l is only found in derivatives of the
+%    rare root \S{kḷp} and (as far as I can tell) it will always
+%    immediately following a~\S{k}.  The following rule allows \S{ḷ}
+%    to be used in those contexts.  (See “Transliteration pass 1.5”
+%    below for another way to disambiguate dual uses of~\S{ḷ}.)
+%    \begin{macrocode}
+%<san>l dotbelow / k _ > lry
+%    \end{macrocode}
+%    Allow \S{āi} and \S{āu} as synonyms for \S{ai} and \S{au}.
+%    \begin{macrocode}
+%<san>a macronabove / _ (i | u) > a
+%    \end{macrocode}
+%    Recognize some older transcription conventions used in, for
+%    example, works by Macdonell or Whitney.
+%    \begin{macrocode}
+%<*san>
+n macronabove <> n dotabove
+c ccedilla <> s acute
+circumflex <> macronabove
+%</san>
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%<*san>
+a macronbelow u macronbelow > a u macronbelow
+a macronbelow i macronbelow > a i macronbelow
+%</san>
+%    \end{macrocode}
+%
+%    Diereses are used to keep “i” or “u” from forming diphthongs with
+%    a preceding “a”.
+%    \begin{macrocode}
+i dieresis > zwnj i
+u dieresis > zwnj u
+%    \end{macrocode}
+%
+%    In NFD, marks under the base character are encoded before marks
+%    above the character, but we need the long vowel mark and the
+%    candribindu to come first.
+%    \begin{macrocode}
+macronbelow macronabove > macronabove macronbelow
+macronbelow CANDRABINDU > CANDRABINDU macronbelow
+%    \end{macrocode}
+%
+% \section{Sanskrit External Vowel Sandhi}
+%
+% This section was inspired by Macdonell's practice of writing, for
+% example,
+% \begin{quote}
+% \N{adhi‿ūḍha}, \emph{pp.} (√ūh) placed upon (\emph{lc.}).
+% \end{quote}
+% in his Sanskrit-English Dictionary to illustrate the action of vowel
+% sandhi in compound words.  With these rules, you can use U+203F
+% UNDERTIE to request vowel coalescence in the Devanagari text:
+% \begin{verbatim}
+%     \N{adhi‿ūḍha}, ...\end{verbatim}
+
+% I've attempted to implement all of sections 19–22 of \emph{A
+% Sanskrit Grammar for Students}~\cite{sgs}.  The rules below are
+% quoted from there, with minor adaptations and elisions.  The order
+% and division into passes is chosen to ensure that, for example, the
+% digraphs \S{ai} and \S{au} are processed before any of the patterns
+% beginning with \S{i} or~\S{u}.
+
+%    \begin{macrocode}
+%<*san>
+pass(Unicode)
+
+Define coalesce U+203F ; UNDERTIE
+%    \end{macrocode}
+%
+%    For simplicity (and because Macdonell doesn't display them in the
+%    Devanagari in his dictionary), drop all accents.
+%    \begin{macrocode}
+UniClass[vaccent] = (acute grave macronbelow vert)
+
+[vaccent] / _ coalesce                  >
+[vaccent] /   coalesce _                >
+[vaccent] /   coalesce . macronabove? _ >
+%    \end{macrocode}
+%
+%    SGS §21a: The Guṇa vowels \S{e} and~\S{o} remain unchanged
+%    before~\S{a}, which is elided:
+%    \begin{macrocode}
+coalesce a / (e | o) _ > apos
+%    \end{macrocode}
+%    NB: \S{e} or \S{o} followed \S{ā} is handled by the next rule
+%    because more specific (i.e., longer) rules take precedence.
+%
+%    SGS §21b: The Guṇa vowels \S{e} and~\S{o} become \S{a} (through
+%    \S{ay} and~\S{av}, which drop the semivowel) before every other
+%    vowel or diphthong:
+%    \begin{macrocode}
+UniClass[othervowel] = (i u ri lry e o)
+
+( e | o ) coalesce / _ a macronabove > a hiatus
+( e | o ) coalesce / _ [othervowel]  > a hiatus
+%    \end{macrocode}
+%
+% SGS §22: The Vṛddhi vowels ai and au respectively become ā and āv
+% before every vowel (or diphthong):
+%    \begin{macrocode}
+a i coalesce / _ (a | [othervowel]) > a macronabove hiatus
+a u coalesce / _ (a | [othervowel]) > a macronabove v
+%    \end{macrocode}
+% SGS §22a: The (secondary) hiatus occasioned by the dropping of y and
+% v in the above three cases (21b and 22) remains.
+%
+%    \begin{macrocode}
+pass(Unicode)
+%    \end{macrocode}
+%
+% SGS §19a: a and ā coalesce with a following simple liquid vowel to Guṇa:
+%    \begin{macrocode}
+a macronabove? coalesce i   macronabove? > e
+a macronabove? coalesce u   macronabove? > o
+a macronabove? coalesce ri  macronabove? > a r
+a macronabove? coalesce lry macronabove? > a l
+%    \end{macrocode}
+%
+% SGS §19b: a and ā coalesce with Guṇa vowels to Vṛddhi
+%
+% SGS §19c: a and ā are absorbed by Vṛddhi vowels
+%    \begin{macrocode}
+a macronabove? coalesce (e | a i) > a i
+a macronabove? coalesce (o | a u) > a u
+%    \end{macrocode}
+%
+% Other cases of §19b,c are digraphs handled by §18 below.
+%
+% SGS §20: A simple liquid vowel followed by any other vowel or by a
+% diphthong is changed to its semivowel:
+%    \begin{macrocode}
+UniClass[anyvowel] = (a i u ri lry e o)
+UniClass[liquid]   = (  i u ri lry)
+UniClass[sv]       = (  y v r  l)
+
+[liquid] macronabove? coalesce / _ [anyvowel] > [sv]
+%    \end{macrocode}
+%
+% SGS §18: If the same simple vowel (short or long) occurs at the end
+% and beginning of words, the result is a long vowel:
+%    \begin{macrocode}
+a   macronabove? coalesce a   macronabove? > a   macronabove
+i   macronabove? coalesce i   macronabove? > i   macronabove
+u   macronabove? coalesce u   macronabove? > u   macronabove
+ri  macronabove? coalesce ri  macronabove? > ri  macronabove
+lry macronabove? coalesce lry macronabove? > lry macronabove
+%    \end{macrocode}
+%
+% \subsection{Irregular sandhi}
+%
+% U+2054 INVERTED UNDERTIE can be used to invoke an alternate set of
+% rules, for example,
+% \begin{quote}
+% \N{upa⁔oṣaṇa}, \emph{n.} fasting.
+% \end{quote}
+% where \N{a} and \N{o} have coalesced to form \N{o} rather than the
+% regular \N{au}.
+%    \begin{macrocode}
+Define altcoalesce U+2054 ; INVERTED UNDERTIE
+
+a altcoalesce o > o
+%</san>
+%    \end{macrocode}
+% (This is the only exception I've come across so far; if there are
+% others, I'll add them.)
+%
+% \section{Phase 2: Transliteration}
+% \label{phase2}
+%
+% \subsection{Transliteration Pass 1: Transliterate blindly.}
+%
+% After this step, all characters will be replaced by their
+% approximate Devanagari equivalents, but the result will not be
+% well-formed.
+%    \begin{macrocode}
+pass(Unicode)
+%    \end{macrocode}
+% \subsubsection{Numerals}
+%    \begin{macrocode}
+U+0030 > zero
+U+0031 > one
+U+0032 > two
+U+0033 > three
+U+0034 > four
+U+0035 > five
+U+0036 > six
+U+0037 > seven
+U+0038 > eight
+U+0039 > nine
+%    \end{macrocode}
+%
+% \subsubsection{Vowels}
+%    \begin{macrocode}
+UniClass[short_in]  = (a      i      u      ri     lry)
+UniClass[short_out] = (asvara isvara usvara rsvara lsvara)
+UniClass[long_out]  = (Asvara Isvara Usvara Rsvara Lsvara)
+
+[short_in] macronabove > [long_out]
+
+[short_in] > [short_out]
+
+%<mlym>u breveabove > virama ; ???
+%<!mlym>u breveabove > usvara
+
+e             > esvara
+e macronabove > Esvara
+a i           > aisvara
+
+e circumflex > ecandra
+o circumflex > ocandra
+
+o             > osvara
+o macronabove > Osvara
+a u           > ausvara
+
+%<sinh>ae > aesvara
+%<sinh>ae macronabove > AEsvara
+
+%<telu>n breveabove > altcandrabindu ; ???
+
+%<deva|knda>h macronbelow > jihvamuliya
+%<deva|knda>h brevebelow  > upadhmaniya
+
+%<taml>k macronbelow > visarga
+
+apos > avagraha
+%    \end{macrocode}
+%
+% \subsubsection{Tone marks}
+%
+% \iffalse
+% RV = Ṛg-Veda
+% MS = Maitrāyaṇī Saṃhitā
+% KS = Kāṭhaka Saṃhitā
+%
+% Name     Meaning        Pitch   RV           MS      KS
+% udātta   “raised”       high    <unmarked>   VERT    VERT
+% svarita  “sounded”      middle  VERT
+% anudātta “not raised”   low     MACRONBELOW
+% \fi
+%    \begin{macrocode}
+vert        > udatta
+macronbelow > anudatta
+%<san>hookbelow   > svarita_k_i
+%    \end{macrocode}
+%
+% Delete non-Vedic accents.
+%    \begin{macrocode}
+grave >
+acute >
+tildeabove >
+%    \end{macrocode}
+%
+%    \subsubsection{Bindus and visargas}
+%    \begin{macrocode}
+m dotabove > anusvara
+h dotbelow > visarga
+%    \end{macrocode}
+%    The International Alphabet of Sanskrit Transliteration uses \S{ṃ}
+%    instead of \S{ṁ} for the anusvara.  Since \S{ṃ} is only otherwise
+%    used for the tippi in Gurmukhi, allow it as a synonym for the
+%    anusvara everywhere else.
+%    \begin{macrocode}
+%<guru>m dotbelow > tippi
+%<!guru>m dotbelow > anusvara
+%    \end{macrocode}
+%    \begin{macrocode}
+m CANDRABINDU > candrabindu
+n CANDRABINDU > candrabindu
+%    \end{macrocode}
+%
+% \subsubsection{Consonants (no conjuncts)}
+%
+%    \subsubsection{Nuktas}
+%
+%    \begin{macrocode}
+%<*nukta>
+q          <> qa
+k macronbelow h macronbelow > khha
+g dotabove > ghha
+%<!telu>z > za
+f > fa
+%</nukta>
+%<knda>z > za
+%<knda|sinh>f > fa
+%<telu>z > dza
+%<beng|orya>w > wa
+%    \end{macrocode}
+%
+%    \subsubsection{Velar}
+%
+%    \begin{macrocode}
+k          <> ka
+k h        <> kha
+g          <> ga
+g h        <> gha
+n dotabove <> nga
+%<sinh>n breveabove g > nnga
+%    \end{macrocode}
+%
+%    \subsubsection{Palatal}
+%
+%    \begin{macrocode}
+c            <> ca
+%<telu>c circumflex <> tsa
+c h          <> cha
+j            <> ja
+j h          <> jha
+n tildeabove <> nya
+%<sinh>n breveabove j <> nyja
+%    \end{macrocode}
+%
+%    \subsubsection{Retroflex}
+%
+%    \begin{macrocode}
+t dotbelow   <> tta
+t dotbelow h <> ttha
+d dotbelow   <> dda
+d dotbelow h <> ddha
+n dotbelow   <> nna
+
+%<sinh>n breveabove d <> nda
+%<sinh>n breveabove d dotbelow <> nndda
+
+%<deva&!san>r dotbelow > dddha
+%<beng>r dotbelow > dddha
+%<guru|orya>r dotbelow > rra
+
+%<deva|beng|orya>r dotbelow h > rha
+%    \end{macrocode}
+%
+%    \subsubsection{Dental}
+%
+%    \begin{macrocode}
+t       <> ta
+t h     <> tha
+d       <> da
+d h     <> dha
+n       <> na
+%    \end{macrocode}
+%
+%    \subsubsection{Labial}
+%
+%    \begin{macrocode}
+p       <> pa
+p h     <> pha
+b       <> ba
+b h     <> bha
+m       <> ma
+%<sinh>m breveabove b <> mba
+%    \end{macrocode}
+%
+%    \subsubsection{Semi-vowels}
+%
+%    \subsubsection{???}
+%
+%    \begin{macrocode}
+r macronbelow <> rra
+%<mlym>t macronbelow <> ttta
+%<deva|taml|mlym>n macronbelow <> nnna
+%<sinh>n macronbelow <> nnna
+%<deva|taml|mlym|knda|telu|sinh>l macronbelow <> llla
+%    \end{macrocode}
+%
+%    \subsubsection{Semi-vowels}
+%
+%    \begin{macrocode}
+y            <> ya
+%<deva|beng|orya>y dotabove > yya
+r breveabove > rra zwj
+r            <> ra
+l            <> la
+v            <> va
+%    \end{macrocode}
+%
+%    \subsubsection{Sibilants}
+%
+%    \begin{macrocode}
+s acute    <> sha
+s dotbelow <> ssa
+s          <> sa
+h          <> ha
+%    \end{macrocode}
+%
+%    \subsubsection{Vedic lingual~l}
+%
+%    \begin{macrocode}
+l dotbelow   <> lla
+%<*san>
+l dotbelow h <> lla ha
+%</san>
+%    \end{macrocode}
+%
+% \subsubsection{Punctuation and symbols}
+%
+%    \begin{macrocode}
+degree  <> abbrev
+bar     <> danda
+bar bar <> dbldanda
+%    \end{macrocode}
+%
+% \subsubsection{Ligature breaking}
+%
+% Per note~12 of Stone's \emph{vade mecum}, allow a colon to break
+% ligatures.
+%    \begin{macrocode}
+UniClass[vyanjana] = (ka .. ha extravyanjana)
+
+; colon / [vyanjana] _ [vyanjana]  <> virama zwj
+
+colon <> zwj
+%    \end{macrocode}
+%
+% \subsection{Transliteration Pass 1.5}
+%
+% Adding an additional pass here would enable automatic disambiguation
+% between \S{ḷ} representing lingual~l and \S{ḷ} representing
+% vocalic~l to be made based on the phonetic environment (see section
+% 54 of Whitney's grammar), but only at the cost of making it more
+% complicated to type an isolated lingual~l.  It hardly seems worth
+% it.
+%    \begin{macrocode}
+; pass(Unicode)
+;
+; UniClass[vyanjana] = (ka .. ha)
+;
+; lla / [vyanjana] _ > lsvara
+; lla / # _ > lsvara
+; lla / _ # > lsvara
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+pass(unicode)
+%    \end{macrocode}
+%
+%    Per rule R10 in section~12.1) of Unicode~7.0~\cite{unicode7},
+%    vedic accents (“svaras”) should be encoded following bindus.
+%    This is necessary to get correct rendering in, e.g., XeTeX
+%    (luaTeX is more forgiving).
+%    \begin{macrocode}
+UniClass[svaras] = (udatta anudatta)
+UniClass[bindus] = (anusvara candrabindu)
+
+[svaras]=v1 [bindus]=b1 > @b1 @v1
+%    \end{macrocode}
+%
+% \subsection{Transliteration Pass 2: Attach vowels to consonants.}
+%
+% At this stage all vowels are still represented as independent
+% vowels.  This step will convert vowels following consonants into
+% dependent vowel signs.
+%
+%    \begin{macrocode}
+pass(Unicode)
+
+UniClass[vyanjana] = (ka .. ha extravyanjana)
+
+UniClass[svara] = (         Asvara \
+                   isvara   Isvara \
+                   usvara   Usvara \
+                   rsvara   Rsvara \
+                   lsvara   Lsvara \
+                   ecandra esvara Esvara \
+                   aisvara \
+                   ocandra osvara Osvara \
+                   ausvara)
+
+UniClass[matra] = (       Amatra \
+                   imatra Imatra \
+                   umatra Umatra \
+                   rmatra Rmatra \
+                   lmatra Lmatra \
+                   ecandramatra ematra Ematra \
+                   aimatra \
+                   ocandramatra omatra Omatra \
+                   aumatra)
+
+[svara] / [vyanjana] _ > [matra]
+%    \end{macrocode}
+%
+%    Attach isolated vowel signs and other combining marks to a
+%    non-breaking space (cf.\ The Unicode Standard 7.0, page 60,
+%    “Exhibiting Nonspacing Marks in Isolation”.  HarfBuzz currently
+%    requires this for proper rendering.
+%
+%    NB: visarga is a \emph{spacing} combiner.
+%    \begin{macrocode}
+UniClass[combiners] = ([matra] \
+                       candrabindu anusvara visarga \
+                       udatta anudatta \
+%<san>                 svarita_k_i \
+)
+
+[combiners]=c1 / # _ > nbsp @c1
+%    \end{macrocode}
+%
+% \subsection{Transliteration Pass 3: Form consonant conjuncts.}
+%
+%    \begin{macrocode}
+pass(Unicode)
+
+UniClass[vyanjana] = (ka .. ha extravyanjana)
+
+[vyanjana] / _ [vyanjana] > [vyanjana] virama
+%    \end{macrocode}
+%
+% \subsection{Transliteration Pass 4: Add viramas.}
+%
+%    \begin{macrocode}
+pass(Unicode)
+
+UniClass[vyanjana] = (ka .. ha extravyanjana)
+
+UniClass[novirama] = (asvara Amatra \
+                      imatra Imatra \
+                      umatra Umatra \
+                      rmatra Rmatra \
+                      lmatra Lmatra \
+                      ematra Ematra ecandramatra aimatra \
+                      omatra Omatra ocandramatra aumatra \
+                      virama)
+
+[vyanjana] / _ ^[novirama] <> [vyanjana] virama
+%    \end{macrocode}
+%
+% \subsection{Transliteration Pass 5: Remove inherent \S{a}.}
+%
+%    Finally, remove the inherent short~\S{a}.
+%
+%    \begin{macrocode}
+pass(Unicode)
+
+UniClass[vyanjana] = (ka .. ha extravyanjana)
+
+[vyanjana] asvara <> [vyanjana]
+%    \end{macrocode}
+%
+% \subsection{Transliteration Pass 6: Resolve PUA characters.}
+%
+%    \begin{macrocode}
+%<beng|gujr|guru|knda|sinh>pass(Unicode)
+
+%<guru|gujr|beng>qa > ka nukta
+%<beng|gujr>khha > kha nukta
+%<beng|gujr>ghha > ga nukta
+%<beng|gujr>fa > pha nukta
+%<beng|gujr|knda>za > ja nukta
+%<beng>wa > ba nukta
+%<knda>fa > pha nukta
+%<sinh>nnna > na U+002E
+%<sinh>rra > ra U+002E
+%<sinh>llla > lla U+002E
+%    \end{macrocode}
+
+% \endinput
+
+% In order to remove any possible ambiguity between vocalic~l and
+% Vedic lingual consonant l, the vocalic~l will be represented
+% internally by a combining ring below (cf.\ the IPA).  There's no
+% single Unicode character for that, however, so for convenience we
+% stash it temporarily in the PUA (see normalization pass~3 for
+% more on this topic).

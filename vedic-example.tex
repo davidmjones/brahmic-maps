@@ -1,0 +1,85 @@
+\documentclass{article}
+
+\usepackage{fontspec}
+
+% Brill 2.06: http://www.brill.com/about/brill-fonts
+
+\setmainfont{Brill}
+
+\usepackage{longtable}
+
+\makeatletter
+
+% Murty Hindi 1.01: http://www.murtylibrary.com/mcli-fonts.php
+
+\newfontfamily\@nagarifont[Script=Devanagari,Mapping=deva-san]{Murty Hindi}
+
+\newcounter{stanza}
+
+\def\@verse{%
+    \rightskip\parfillskip
+    \leftskip\parindent
+    \parindent-\leftskip
+    \let\\\par
+}
+
+\def\dev@verse{%
+    \@verse
+    \@nagarifont
+    \advance\baselineskip\jot
+}
+
+\def\format@pada#1.#2.#3.#4\@nil{\@roman#1. #2, #3}
+
+\newcommand{\stanza}[5][]{%
+    \refstepcounter{stanza}%
+    \begingroup
+        \LTpre\medskipamount
+        \LTpost\z@
+        \LTleft\z@
+        \LTright\z@
+        \noindent
+        \begingroup
+        \begin{longtable}{@{}p{.45\textwidth}@{\extracolsep{\fill}}p{.52\textwidth}@{\extracolsep{\fill}}}%
+            \if###2##\else
+                \dev@verse\indent\llap{\thestanza\enskip}#2%
+                & 
+                \dev@verse\indent#3%\tabularnewline[\jot]%
+            \fi
+        \end{longtable}
+        \endgroup
+        % \markthird{\format@pada#1...\@nil}%
+        \begin{longtable}{@{}p{.45\textwidth}@{\extracolsep{\fill}}p{.52\textwidth}@{\extracolsep{\fill}}}%
+            \@verse
+            \indent\llap{\thestanza\enskip}\bfseries#4%
+            & \itshape#5%
+        \end{longtable}%
+    \endgroup
+}
+\makeatother
+
+\begin{document}
+
+\stanza[1.1.1]
+{a̱gnimī̍ḷe pu̱rohi̍taṃ \\
+ya̱jñasya̍ de̱vamṛ̱tvija̍m |\\
+hotā̍raṃ ratna̱dhāta̍mam ||}
+{a̱gnim | ī̱ḷe̱ | pu̱raḥ'hi̍tam |\\
+ya̱jñasya̍ | de̱vam | ṛ̱tvija̍m |\\
+hotā̍ram | ra̱tna̱'dhāta̍mam ||}
+{Agním īḷe puróhitaṃ,\\
+yajñásya devám ṛtvíjam,\\
+hotāraṃ ratnadhā́tamam.}
+{I magnify Agni the domestic priest,
+the divine ministrant of the sacrifice,
+the invoker, best bestower of treasure.}
+
+\bigskip
+
+Sample text from page 3 of
+\begin{quote}
+Arthur Anthony Macdonell.  \emph{A Vedic Reader for Students}.  Oxford
+at the Clarendon Press, 1917.
+\end{quote}
+
+\end{document}
