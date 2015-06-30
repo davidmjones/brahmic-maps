@@ -24,7 +24,7 @@
 
 LHSName "Unicode/ISO 15919"
 RHSName "Unicode/Devanagari"
-Version "0.00 beta"
+Version "0.01 beta"
 Define a        U+0061
 Define ae       U+00E6
 Define b        U+0062

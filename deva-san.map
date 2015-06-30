@@ -24,7 +24,7 @@
 
 LHSName "Unicode/ISO 15919"
 RHSName "Unicode/Sanskrit"
-Version "0.00 beta"
+Version "0.01 beta"
 Define a        U+0061
 Define ae       U+00E6
 Define b        U+0062
@@ -270,6 +270,7 @@ l ringbelow > lry
 r ringbelow > ri
 r dotbelow  > ri
 l dotbelow / k _ > lry
+l dotbelow / _  macronabove > lry
 a macronabove / _ (i | u) > a
 n macronabove <> n dotabove
 c ccedilla <> s acute

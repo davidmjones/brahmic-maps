@@ -1,6 +1,6 @@
 % \def\filename{brahmic.dtx}
-% \def\fileversion{0.00 beta}
-% \def\filedate{2015/06/24}
+% \def\fileversion{0.01 beta}
+% \def\filedate{2015/06/30}
 %
 % \iffalse meta-comment
 %
@@ -314,6 +314,8 @@
 %
 % \item Use U+007C VERTICAL LINE for dandas: \D{|}, \D{||}.
 %
+% \item Use U+00B0 DEGREE SIGN for U+0970 DEVANAGARI ABBREVIATION SIGN
+%
 % \end{itemize}
 %
 % \subsection{Special extensions for Sanskrit}
@@ -325,6 +327,8 @@
 % \item \S{ḷ} can be used immediately following a \S{k} for the
 % vocalic~l, thus the root \textdeva{kḷp} can be typed “kḷp”
 % rather than “kl̥p”.
+%
+% \item \S{ḹ} is always recognized as a long vocalic~l.
 %
 % \item A diaeresis can also be to break a diphthong: \N{praü} vs.\
 %   \N{prau}.
@@ -385,7 +389,7 @@ LHSName "Unicode/ISO 15919"
 %<sinh>RHSName "Unicode/Sinhala"
 %<taml>RHSName "Unicode/Tamil"
 %<telu>RHSName "Unicode/Telugu"
-Version "0.00 beta"
+Version "0.01 beta"
 %    \end{macrocode}
 %
 % \section{Overview}
@@ -2069,6 +2073,10 @@ r ringbelow > ri
 %    below for another way to disambiguate dual uses of~\S{ḷ}.)
 %    \begin{macrocode}
 %<san>l dotbelow / k _ > lry
+%    \end{macrocode}
+%    \S{ḹ} is always a vowel.
+%    \begin{macrocode}
+%<san>l dotbelow / _  macronabove > lry
 %    \end{macrocode}
 %    Allow \S{āi} and \S{āu} as synonyms for \S{ai} and \S{au}.
 %    \begin{macrocode}
