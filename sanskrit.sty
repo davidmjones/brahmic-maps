@@ -1,0 +1,126 @@
+%% This is meant only for formatting the documentation for
+%% brahmic.dtx.  It is not meant as production-ready code and is not
+%% supported.
+
+\ProvidesPackage{sanskrit}
+
+\RequirePackage{fontspec}
+
+\newfontfamily\@nagarifont[Script=Devanagari,Mapping=deva-san]{Murty Hindi}
+\newfontfamily\@nagarifontraw[Script=Devanagari]{Murty Hindi}
+
+\def\liningnumerals{\addfontfeatures{Numbers=Lining}}
+
+\newcommand{\textdeva}[1]{{\@nagarifont#1}}
+
+\DeclareRobustCommand{\S}{\@ifstar{\textup}{\textbf}}%
+
+\newcommand{\D}{\textdeva}
+
+\newif\if@starred
+\@starredfalse
+
+\def\@ifstarred#1{\@ifstar{\@starredtrue#1}{\@starredfalse#1}}
+
+\DeclareRobustCommand{\N}{\@ifstarred\N@}
+
+\def\zap@hyphen#1-#2{%
+  #1%
+  \ifx#2\@empty\else\expandafter\zap@hyphen\fi
+  #2}
+
+\newcommand{\N@}[2][]{%
+    \begingroup
+        \protected@edef\@tempa{\if###1###2\else#1\fi}%
+        \if@starred\else
+            \protected@edef\@tempa{\expandafter\zap@hyphen\@tempa-\@empty}%
+        \fi
+        \textdeva{\@tempa} \S{#2}%
+    \endgroup
+}
+
+\DeclareRobustCommand{\NS}{\NS@}
+
+\newcommand{\NS@}[2][]{%
+    \begingroup
+        \protected@edef\@tempa{\if###1###2\else#1\fi\space}%
+        \protected@edef\@tempa{\expandafter\zap@space\@tempa\@empty}%
+        \textdeva{\@tempa} \S{#2}%
+    \endgroup
+}
+
+\def\C{%
+    \@ifstar{\@starredtrue\@devcpd}{\@starredfalse\@devcpd}%
+}
+
+\def\@devcpd#1{%
+    \textdeva{\zap@hyphen#1-\@empty}~%
+    \if@starred\expandafter\textbf\fi{#1}%
+}
+
+\newcommand{\@sastrut}{%
+    \hbox{%
+        \vrule\@height.5\baselineskip
+%        \@depth.3\baselineskip
+        \@width\z@
+    }%
+}
+
+\newcommand{\SA}[2]{%
+    $\mathop{\S{\@sastrut#1}}\limits^{\mathrm{#2}}$%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                  %%
+%%                              ROOTS                               %%
+%%                                                                  %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareRobustCommand{\rt}{\@ifstarred\@rt}
+
+\DeclareRobustCommand{\rt@star}{%
+    \@ifstar{\@starredtrue\@rt}{\@starredtrue\@rt}%
+}
+
+\let\@rootnum\@empty
+
+\newcommand{\@rt}[2][]{%
+    \begingroup
+        \def\@rootnum{#1}%
+        \if@starred\else √\fi
+        \rtnum\S{#2}%
+    \endgroup
+}
+
+\DeclareRobustCommand{\rtnum}[1][]{%
+    \if###1##%
+        \ifx\@rootnum\@empty\else
+            \if@starred\else\,\fi
+            \@rootnum.~%
+        \fi
+        \global\let\@rootnum\@empty
+    \else
+        #1.~%
+    \fi
+}
+
+\endinput
+
+\newcommand{\@rt}[2][]{%
+    \begingroup
+        \def\@rootnum{#1}%
+        \if@starred\else √\fi
+        \S{#2}\rtnum
+    \endgroup
+}
+
+\DeclareRobustCommand{\rtnum}[1][]{%
+    \if###1##%
+        \ifx\@rootnum\@empty\else\tsup{\@rootnum}\fi
+        \global\let\@rootnum\@empty
+    \else
+        \tsup{#1}%
+    \fi
+}
+
+\endinput
