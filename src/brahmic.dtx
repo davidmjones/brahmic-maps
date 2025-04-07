@@ -1,13 +1,13 @@
 % \def\filename{brahmic.dtx}
-% \def\fileversion{0.01 beta}
-% \def\filedate{2015/06/30}
+% \def\fileversion{0.02 beta}
+% \def\filedate{2025/04/07}
 %
 % \iffalse meta-comment
 %
 % David M. Jones
-% email: dmj@ams.org
+% email: dmjones@alum.mit.edu
 %
-% Copyright 2015 David M. Jones
+% Copyright 2015, 2025 David M. Jones
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either version 1.3c
@@ -28,6 +28,8 @@
 \NeedsTeXFormat{LaTeX2e}
 \documentclass{ltxdoc}
 
+\usepackage{sanskrit}
+
 \setcounter{tocdepth}{2}
 \setcounter{secnumdepth}{2}
 
@@ -41,7 +43,7 @@
 
 \setmainfont[Numbers=Lining]{Brill}
 
-% No endorsement is meant for any of these fonts (excerpt for Murty
+% No endorsement is meant for any of these fonts (except for Murty
 % Hindi).  I simply looked for the first font that had all or most of
 % the characters I needed.  I'm open to suggestions for replacement
 % fonts, especially free alternatives to Arial Unicode MS.
@@ -58,11 +60,10 @@
 \newfontfamily\knda[Mapping=knda]{Arial Unicode MS}
 \newfontfamily\mlym[Mapping=mlym]{Arial Unicode MS}
 \newfontfamily\orya[Mapping=orya]{Arial Unicode MS}
+\let\sinh\relax
 \newfontfamily\sinh[Mapping=sinh]{Akshar Unicode}
 \newfontfamily\taml[Mapping=taml]{Kadambri}
 \newfontfamily\telu[Mapping=telu]{Arial Unicode MS}
-
-\usepackage{sanskrit}
 
 \renewenvironment{quote}
                {\list{}{\rightmargin0pt }%
@@ -143,7 +144,7 @@
 % \subsection{Caveats}
 %
 % I'm fairly confident that the Devanagari transliteration
-% works,\footnote{At least, it did before I started adding re-arranging
+% works,\footnote{At least, it did before I started re-arranging
 % things to add other scripts.} but I'm much less sanguine about
 % the other scripts, of which I lack even the modest knowledge I have
 % about Devanagari.  I'd be grateful for any feedback from more
@@ -176,6 +177,8 @@
 % of the characters covered, but there are still some missing glyphs
 % in Devanagari, Kannada, Malayalam, Oriya, Telugu.  I'd be grateful
 % for suggestions of fonts containing those characters.
+
+% \tracinglostchars=0
 
 % \begin{longtable}{@{}
 %     >{\bfseries}l
